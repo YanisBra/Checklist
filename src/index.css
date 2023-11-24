@@ -1,0 +1,10 @@
+:root {
+  --blue: #26547c;
+  --pink: #ef476f;
+  --lightpink: #f78aa2;
+  --yellow: #ffd166;
+}
+
+* {
+  font-family: "Roboto";
+}
