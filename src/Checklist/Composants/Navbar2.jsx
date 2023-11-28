@@ -27,7 +27,6 @@ const StyledNavbar = styled(Navbar)`
     background-color: #ef476f;
     margin-right: auto;
     width: 15vh;
-    font-family: "Orbitron", sans-serif;
     filter: drop-shadow(0px 3px 2px #303030);
   }
 
@@ -40,6 +39,39 @@ const StyledNavbar = styled(Navbar)`
     margin-right: -25px;
     height: 80px;
     width: 140px;
+  }
+
+  @media screen and (max-width: 700px) {
+    a {
+      font-size: 20px;
+      text-align: center;
+    }
+    .Logo {
+      height: 60px;
+      width: 105px;
+    }
+    .Home {
+      width: 15vh;
+      font-size: 17px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    a {
+      font-size: 20px;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+      width: 150px;
+    }
+    .Logo {
+      height: 60px;
+      width: 105px;
+    }
+    .Home {
+      width: 15vh;
+      font-size: 17px;
+    }
   }
 `;
 

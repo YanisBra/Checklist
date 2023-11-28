@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 
 const StyledDiv = styled.div`
   width: 50vw;
-  height: 10vh;
-  margin: 5vh auto;
+  margin: 20px auto;
   font-family: "Orbitron", sans-serif;
   filter: drop-shadow(0px 5px 2px #878787);
   .Card {
@@ -34,11 +33,15 @@ const StyledDiv = styled.div`
   }
 
   .Edit {
-    top: 4vw;
+    float: right;
   }
 
   .Poubelle {
-    top: 10vw;
+    float: left;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 60vw;
   }
 `;
 
@@ -58,20 +61,22 @@ function CardList({ title, description, taskDone, nbTask }) {
       >
         <Text className="Title" fw={800} size="xl" mt="md" ta="left">
           {title}
+          <a href="#">
+            <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
+          </a>
         </Text>
+
         <Text className="Description" fw={300} size="sm" mt="md" ta="left">
           {description}
+          <a href="#">
+            <img
+              className="Poubelle"
+              src="./Images/Poubelle.svg"
+              alt="PoubelleButton"
+            />
+          </a>
         </Text>
-        <a href="#">
-          <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
-        </a>
-        <a href="#">
-          <img
-            className="Poubelle"
-            src="./Images/Poubelle.svg"
-            alt="PoubelleButton"
-          />
-        </a>
+
         <Text className="Tasks" amt="xs" size="sm" ta="center">
           {taskDone} task on {nbTask} completed
         </Text>

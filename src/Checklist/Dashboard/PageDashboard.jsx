@@ -48,17 +48,16 @@ const PageDashboard = () => {
       <Button className="Button" variant="filled" size="md" radius="lg">
         Add Checklist
       </Button>
+      <button className="MobileButton">+</button>
     </StyledDashboard>
   );
 };
 
-//CSS
 const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   margin-top: 10vh;
 `;
 
@@ -69,9 +68,34 @@ const StyledDashboard = styled.div`
     bottom: 2vh;
     right: 2vh;
     z-index: 1000;
-    font-family: "Orbitron", sans-serif;
     height: 6vh;
     filter: drop-shadow(0px 3px 2px #303030);
+  }
+  .MobileButton {
+    display: none;
+  }
+
+  @media screen and (max-width: 700px) {
+    .Button {
+      display: none;
+    }
+
+    .MobileButton {
+      display: block;
+      background-color: #ef476f;
+      position: fixed;
+      bottom: 2vh;
+      right: 2vh;
+      z-index: 1000;
+      border-radius: 50px;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: bold;
+      height: 50px;
+      width: 50px;
+      border: none;
+    }
   }
 `;
 

@@ -6,6 +6,7 @@ import "@mantine/core/styles.css";
 import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -1,7 +1,9 @@
-import { Card, Button } from "@mantine/core";
+import { Card, Button, Checkbox } from "@mantine/core";
 import styled from "styled-components";
-import CheckBox from "./CheckBox";
 import uniqid from "uniqid";
+import AddTask from "./AddTask";
+import FormHeader from "./FormHeader";
+import CheckBox from "./CheckBox";
 
 const tasks = [
   { task: "Task 1", value: false },
@@ -13,6 +15,7 @@ const tasks = [
   { task: "Task 7", value: true },
 ];
 
+//fonction qui permet de mettre les tasks checks en dessous des autres
 function PageForm() {
   const sortedTasks = [...tasks].sort((a, b) => a.value - b.value);
 
@@ -26,39 +29,13 @@ function PageForm() {
           component="div"
           radius="xl"
         >
-          <Header>
-            <TitleDiv>
-              {/* <h1 className="Title">Title :</h1>
-            <textarea className="texttitle"></textarea> */}
-              <label className="Title" htmlFor="titre">
-                Title :
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="New title..."
-              />
-            </TitleDiv>
-            <DescriptionDiv>
-              {/* <h2 className="Description">Description :</h2>
-            <textarea className="texttitle"></textarea> */}
-              <label className="Description" htmlFor="description">
-                Description :
-              </label>
-              <input
-                type="text"
-                id="desciption"
-                name="description"
-                placeholder="Description..."
-              />
-            </DescriptionDiv>
-          </Header>
+          <FormHeader />
           <div>
             {sortedTasks.map((task) => (
               <CheckBox key={uniqid} {...task} />
             ))}
           </div>
+          <AddTask />
           <Button
             className="Button"
             variant="outline"
@@ -80,7 +57,6 @@ const StyledDiv = styled.div`
   width: 50vw;
   height: 70;
   margin: 5vh auto;
-  font-family: "Orbitron", sans-serif;
   filter: drop-shadow(0px 5px 2px #878787);
   margin-top: 15vh;
   .Card {
@@ -112,53 +88,8 @@ const StyledDiv = styled.div`
     margin: auto;
   }
 
-  textarea {
-    margin: auto 0 auto auto;
-    width: 70%;
-    background-color: #f78aa2;
-    resize: none;
-    border: none;
-    border-radius: 10px;
-    color: white;
-  }
-`;
-
-const Header = styled.div`
-  input {
-    margin: auto 0 auto 10px;
-    background-color: #f78aa2;
-    resize: none;
-    border: none;
-    border-radius: 10px;
-    color: white;
-
-    &::placeholder {
-      color: white;
-    }
-  }
-`;
-
-const TitleDiv = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-  margin-top: 30px;
-  border-radius: 20%;
-
-  .Title {
-    font-size: 35px;
-    font-weight: 900;
-    margin-left: 0;
-  }
-`;
-
-const DescriptionDiv = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-  border-radius: 20%;
-
-  .Description {
-    font-size: 18px;
-    font-weight: lighter;
+  @media screen and (max-width: 700px) {
+    width: 80vw;
   }
 `;
 
