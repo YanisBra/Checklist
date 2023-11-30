@@ -1,3 +1,4 @@
+import { NavLink, Routes, Route } from "react-router-dom";
 import Navbar2 from "./Checklist/Composants/Navbar2";
 import PageDashboard from "./Checklist/Dashboard/PageDashboard";
 import PageForm from "./Checklist/Form/PageForm";
@@ -7,9 +8,16 @@ function App() {
   return (
     <>
       <Navbar2 />
-      <PageDashboard />
-      <PageForm />
-      <PageList />
+      <div>
+        {/* <NavLink to="/">Dashboard</NavLink>{" "}
+        <NavLink to="/newForm">Form</NavLink> */}
+      </div>
+      <Routes>
+        <Route path="/" element={<PageDashboard />} />
+        <Route path="/form" element={<PageForm />} />
+        <Route path="/newForm" element={<PageForm />} />
+        <Route path="/list/:id" element={<PageList />} />
+      </Routes>
     </>
   );
 }

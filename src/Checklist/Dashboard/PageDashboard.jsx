@@ -1,54 +1,49 @@
+import React, { useState, useEffect } from "react";
 import CardList from "./CardList";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import uniqid from "uniqid";
 import { Button } from "@mantine/core";
-
-//Tableau des chekclists
-const checklists = [
-  {
-    title: "Checklist 1",
-    description: "Description for Checklist 1",
-    taskDone: 3,
-    nbTask: 5,
-  },
-  {
-    title: "Checklist 2",
-    description: "Description for Checklist 2",
-    taskDone: 2,
-    nbTask: 7,
-  },
-  {
-    title: "Checklist 3",
-    description: "Description for Checklist 3",
-    taskDone: 4,
-    nbTask: 6,
-  },
-  {
-    title: "Checklist 4",
-    description: "Description for Checklist 4",
-    taskDone: 1,
-    nbTask: 8,
-  },
-  {
-    title: "Checklist 5",
-    description: "Description for Checklist 5",
-    taskDone: 5,
-    nbTask: 5,
-  },
-];
+import initialChecklistsData from "../Data/checklistsData";
 
 const PageDashboard = () => {
+  const [checklistsData, setChecklists] = useState(initialChecklistsData);
+
   return (
     <StyledDashboard>
       <ContainerDiv>
-        {checklists.map((list) => (
-          <CardList key={uniqid} {...list} />
+        {checklistsData.map(({ id, title, description, nbTask, taskDone }) => (
+          <CardList
+            key={id}
+            id={id}
+            title={title}
+            description={description}
+            nbTask={nbTask}
+            taskDone={taskDone}
+          />
         ))}
       </ContainerDiv>
-      <Button className="Button" variant="filled" size="md" radius="lg">
-        Add Checklist
-      </Button>
-      <button className="MobileButton">+</button>
+      {/* {checklistsData.map(({ title }) => (
+        <Link key={uniqid()} to={`/list/${uniqid()}`}>
+          <div>
+            <p>{title}</p>
+          </div>
+        </Link>
+      ))} */}
+      <Link to="/form">
+        <Button
+          className="Button"
+          variant="filled"
+          size="md"
+          radius="lg"
+          href="list"
+        >
+          Add Checklist
+        </Button>
+      </Link>
+      <Link to="/form">
+        <button className="MobileButton">+</button>
+      </Link>
     </StyledDashboard>
   );
 };
@@ -59,6 +54,10 @@ const ContainerDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10vh;
+
+  .link {
+    text-decoration: none;
+  }
 `;
 
 const StyledDashboard = styled.div`

@@ -2,27 +2,23 @@ import styled from "styled-components";
 import uniqid from "uniqid";
 import Task from "./RedTask";
 import PropTypes from "prop-types";
+import checklistsData from "../Data/checklistsData";
+import { useParams } from "react-router-dom";
 
-const tasks = [
-  { task: "Task 1", value: false },
-  { task: "Task 2", value: false },
-  { task: "Task 3", value: false },
-  { task: "Task 4", value: false },
-  { task: "Task 5", value: false },
-  { task: "Task 6", value: true },
-  { task: "Task 7", value: true },
-];
+const PageList = () => {
+  const { id } = useParams();
+  const checklist = checklistsData.find((item) => item.id === parseInt(id));
 
-const PageList = ({ title, description }) => {
-  const sortedTasks = [...tasks].sort((a, b) => a.value - b.value);
+  // Tri des tâches par l'état "done"
+  const sortedTasks = [...checklist.tasks].sort((a, b) => a.done - b.done);
 
   return (
     <>
       <StyledList>
-        <h1>{title}</h1>
-        <h2>{description}</h2>
-        {sortedTasks.map((task) => (
-          <Task key={uniqid} {...task} />
+        <h1>{checklist.title}</h1>
+        <h2>{checklist.description}</h2>
+        {sortedTasks.map(({ task, done }) => (
+          <Task key={uniqid()} task={task} done={done} />
         ))}
       </StyledList>
     </>
@@ -36,7 +32,6 @@ const StyledList = styled.div`
   align-items: center;
   min-height: 100vh;
   margin-top: 13vh;
-  font-family: "Orbitron", sans-serif;
   color: #ef476f;
   & h1 {
     font-weight: 900;

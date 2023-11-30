@@ -45,7 +45,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-function CardList({ title, description, taskDone, nbTask }) {
+function CardList({ title, description, taskDone, nbTask, id }) {
   const pourcentage = (taskDone / nbTask) * 100;
 
   return (
@@ -55,8 +55,8 @@ function CardList({ title, description, taskDone, nbTask }) {
         shadow="sm"
         padding="xl"
         component="a"
-        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        target="_blank"
+        href={`/list/${id}`}
+        // target="_blank"
         radius="lg"
       >
         <Text className="Title" fw={800} size="xl" mt="md" ta="left">

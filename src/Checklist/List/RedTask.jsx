@@ -19,12 +19,12 @@ const StyledTask = styled.div`
 
   p {
     margin: 0;
-    opacity: ${({ value }) => (value ? 0.5 : 1)};
+    opacity: ${({ done }) => (done ? 0.5 : 1)};
   }
 `;
 
-function RedTask({ task, value, onChange }) {
-  const [isChecked, setIsChecked] = useState(value);
+function RedTask({ task, done, onChange }) {
+  const [isChecked, setIsChecked] = useState(done);
 
   const toggleCheck = () => {
     setIsChecked(!isChecked);
@@ -37,7 +37,7 @@ function RedTask({ task, value, onChange }) {
   const check = isChecked ? "/Images/CheckCircle.svg" : "/Images/Circle.svg";
 
   return (
-    <StyledTask value={isChecked}>
+    <StyledTask done={isChecked}>
       <img
         src={check}
         alt="Circle"
@@ -52,13 +52,13 @@ function RedTask({ task, value, onChange }) {
 // Props
 RedTask.propTypes = {
   task: PropTypes.string.isRequired,
-  value: PropTypes.bool.isRequired,
+  done: PropTypes.bool.isRequired,
   onChange: PropTypes.func, // Ajouter la prop onChange
 };
 
 RedTask.defaultProps = {
   task: "Default Task",
-  value: false,
+  done: false,
 };
 
 export default RedTask;

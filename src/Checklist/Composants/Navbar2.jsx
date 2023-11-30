@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import styled from "styled-components";
 import { Button } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 const StyledNavbar = styled(Navbar)`
   position: fixed;
@@ -78,12 +79,19 @@ const StyledNavbar = styled(Navbar)`
 const Navbar2 = () => {
   return (
     <StyledNavbar>
-      <Button className="Home" radius="lg" variant="filled" size="xl">
+      <Button
+        className="Home"
+        radius="lg"
+        variant="filled"
+        size="xl"
+        href="youtube.com"
+      >
         Home
       </Button>
+
       <div className="Entreprise">
         <img src="./Images/Logo.png" alt="Logo" className="Logo" />
-        <a href="#" className="Pre-flight-checklist">
+        <a href="/" className="Pre-flight-checklist">
           Pre-flight checklist
         </a>
       </div>
