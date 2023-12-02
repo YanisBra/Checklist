@@ -1,6 +1,7 @@
 import { Card, Text, Progress } from "@mantine/core";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   width: 50vw;
@@ -61,9 +62,9 @@ function CardList({ title, description, taskDone, nbTask, id }) {
       >
         <Text className="Title" fw={800} size="xl" mt="md" ta="left">
           {title}
-          <a href="#">
+          <Link to={`/form/${id}`}>
             <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
-          </a>
+          </Link>
         </Text>
 
         <Text className="Description" fw={300} size="sm" mt="md" ta="left">

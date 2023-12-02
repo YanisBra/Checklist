@@ -4,20 +4,14 @@ import uniqid from "uniqid";
 import AddTask from "./AddTask";
 import FormHeader from "./FormHeader";
 import CheckBox from "./CheckBox";
-
-const tasks = [
-  { task: "Task 1", value: false },
-  { task: "Task 2", value: false },
-  { task: "Task 3", value: false },
-  { task: "Task 4", value: false },
-  { task: "Task 5", value: false },
-  { task: "Task 6", value: true },
-  { task: "Task 7", value: true },
-];
+import checklistsData from "../Data/checklistsData";
+import { useParams } from "react-router-dom";
 
 //fonction qui permet de mettre les tasks checks en dessous des autres
 function PageForm() {
-  const sortedTasks = [...tasks].sort((a, b) => a.value - b.value);
+  const { id } = useParams();
+  const checklist = checklistsData.find((item) => item.id === parseInt(id));
+  const sortedTasks = [...checklist.tasks].sort((a, b) => a.done - b.done);
 
   return (
     <>
@@ -29,10 +23,16 @@ function PageForm() {
           component="div"
           radius="xl"
         >
-          <FormHeader />
+          <FormHeader
+            title={checklist.title}
+            description={checklist.description}
+          />
           <div>
-            {sortedTasks.map((task) => (
+            {/* {sortedTasks.map((task) => (
               <CheckBox key={uniqid} {...task} />
+            ))} */}
+            {sortedTasks.map(({ task, done }) => (
+              <CheckBox key={uniqid()} task={task} done={done} />
             ))}
           </div>
           <AddTask />

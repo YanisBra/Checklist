@@ -1,13 +1,14 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
-const FormHeader = () => {
+const FormHeader = ({ title, description }) => {
   return (
     <Header>
       <TitleDiv>
         <label className="Title" htmlFor="titre">
           Title :
         </label>
-        <input type="text" id="title" name="title" placeholder="New title..." />
+        <input type="text" id="title" name="title" placeholder={title} />
       </TitleDiv>
       <DescriptionDiv>
         <label className="Description" htmlFor="description">
@@ -17,7 +18,7 @@ const FormHeader = () => {
           type="text"
           id="desciption"
           name="description"
-          placeholder="Description..."
+          placeholder={description}
         />
       </DescriptionDiv>
     </Header>
@@ -84,5 +85,16 @@ const DescriptionDiv = styled.div`
     }
   }
 `;
+
+//propTypes
+FormHeader.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+};
+
+FormHeader.defaultProps = {
+  title: "Title",
+  description: "Description...",
+};
 
 export default FormHeader;

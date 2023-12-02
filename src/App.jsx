@@ -14,7 +14,7 @@ function App() {
       </div>
       <Routes>
         <Route path="/" element={<PageDashboard />} />
-        <Route path="/form" element={<PageForm />} />
+        <Route path="/form/:id" element={<PageForm />} />
         <Route path="/newForm" element={<PageForm />} />
         <Route path="/list/:id" element={<PageList />} />
       </Routes>
