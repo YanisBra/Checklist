@@ -95,10 +95,10 @@ function CardList({ title, description, taskDone, nbTask, id }) {
 }
 
 CardList.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  taskDone: PropTypes.number.isRequired,
-  nbTask: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  taskDone: PropTypes.number,
+  nbTask: PropTypes.number,
 };
 
 CardList.defaultProps = {

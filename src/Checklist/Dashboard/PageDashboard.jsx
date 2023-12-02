@@ -30,7 +30,7 @@ const PageDashboard = () => {
           </div>
         </Link>
       ))} */}
-      <Link to="/form">
+      <Link to="/add-checklist">
         <Button
           className="Button"
           variant="filled"
@@ -41,7 +41,7 @@ const PageDashboard = () => {
           Add Checklist
         </Button>
       </Link>
-      <Link to="/form">
+      <Link to="/add-checklist">
         <button className="MobileButton">+</button>
       </Link>
     </StyledDashboard>
