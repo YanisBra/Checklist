@@ -25,9 +25,9 @@ function CheckBox({ done, task }) {
       </>
       <div className="image">
         <a>
-          <i class="fa-regular fa-trash-can"></i>
+          <i className="fa-regular fa-trash-can"></i>
         </a>
-        <i class="fa-solid fa-pen"></i>
+        <i className="fa-solid fa-pen"></i>
       </div>
     </StyledCheckBox>
   );

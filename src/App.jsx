@@ -3,7 +3,7 @@ import Navbar2 from "./Checklist/Composants/Navbar2";
 import PageDashboard from "./Checklist/Dashboard/PageDashboard";
 import PageForm from "./Checklist/Form/PageForm";
 import PageList from "./Checklist/List/PageList";
-import AddChecklist from "./Checklist/Form/AddChecklist";
+import FormAddChecklist from "./Checklist/Form/FormAddChecklist";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PageDashboard />} />
         <Route path="/form/:id" element={<PageForm />} />
-        <Route path="/add-checklist" element={<AddChecklist />} />{" "}
+        <Route path="/add-checklist" element={<FormAddChecklist />} />{" "}
         <Route path="/list/:id" element={<PageList />} />
       </Routes>
     </>
