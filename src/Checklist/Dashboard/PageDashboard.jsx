@@ -2,12 +2,27 @@ import React, { useState, useEffect } from "react";
 import CardList from "./CardList";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import uniqid from "uniqid";
 import { Button } from "@mantine/core";
-import initialChecklistsData from "../Data/checklistsData";
+import { getChecklists } from "../Api/apiFunctions";
 
 const PageDashboard = () => {
-  const [checklistsData, setChecklists] = useState(initialChecklistsData);
+  const [checklistsData, setChecklistsData] = useState([]);
+
+  useEffect(() => {
+    // Chargement des checklists depuis l'API au montage du composant
+    const fetchChecklists = async () => {
+      try {
+        const checklists = await getChecklists();
+        console.log(checklists); // Vérifiez si le tableau est correctement extrait
+
+        setChecklistsData(checklists);
+      } catch (error) {
+        console.error("Error fetching checklists:", error);
+      }
+    };
+
+    fetchChecklists();
+  }, []);
 
   return (
     <StyledDashboard>
@@ -23,13 +38,6 @@ const PageDashboard = () => {
           />
         ))}
       </ContainerDiv>
-      {/* {checklistsData.map(({ title }) => (
-        <Link key={uniqid()} to={`/list/${uniqid()}`}>
-          <div>
-            <p>{title}</p>
-          </div>
-        </Link>
-      ))} */}
       <Link to="/add-checklist">
         <Button
           className="Button"
@@ -54,10 +62,6 @@ const ContainerDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10vh;
-
-  .link {
-    text-decoration: none;
-  }
 `;
 
 const StyledDashboard = styled.div`

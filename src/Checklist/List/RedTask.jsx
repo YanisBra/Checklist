@@ -14,21 +14,21 @@ const StyledTask = styled.div`
     height: 25px;
     margin-right: 15px;
     margin-left: -5px;
-    cursor: pointer; /* Ajouter une propriété de curseur pour indiquer que c'est cliquable */
+    cursor: pointer;
   }
 
   p {
     margin: 0;
-    opacity: ${({ done }) => (done ? 0.5 : 1)};
+    opacity: ${({ statut }) => (statut === 2 ? 0.5 : 1)};
   }
 `;
 
-function RedTask({ task, done, onChange }) {
-  const [isChecked, setIsChecked] = useState(done);
+function RedTask({ task, statut, onChange }) {
+  const [isChecked, setIsChecked] = useState(statut === 2);
 
   const toggleCheck = () => {
     setIsChecked(!isChecked);
-    // Appeler la fonction onChange pour mettre à jour la valeur à l'extérieur
+
     if (onChange) {
       onChange(!isChecked);
     }
@@ -37,28 +37,22 @@ function RedTask({ task, done, onChange }) {
   const check = isChecked ? "/Images/CheckCircle.svg" : "/Images/Circle.svg";
 
   return (
-    <StyledTask done={isChecked}>
-      <img
-        src={check}
-        alt="Circle"
-        className="Circle"
-        onClick={toggleCheck} // Ajouter l'événement onClick pour changer la valeur
-      />
+    <StyledTask statut={isChecked ? 2 : 0}>
+      <img src={check} alt="Circle" className="Circle" onClick={toggleCheck} />
       <p>{task}</p>
     </StyledTask>
   );
 }
 
-// Props
 RedTask.propTypes = {
   task: PropTypes.string.isRequired,
-  done: PropTypes.bool.isRequired,
-  onChange: PropTypes.func, // Ajouter la prop onChange
+  statut: PropTypes.number.isRequired,
+  onChange: PropTypes.func,
 };
 
 RedTask.defaultProps = {
   task: "Default Task",
-  done: false,
+  statut: 0,
 };
 
 export default RedTask;

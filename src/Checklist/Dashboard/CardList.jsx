@@ -2,6 +2,7 @@ import { Card, Text, Progress } from "@mantine/core";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { deleteChecklist } from "../Api/apiFunctions";
 
 const StyledDiv = styled.div`
   width: 50vw;
@@ -31,6 +32,8 @@ const StyledDiv = styled.div`
     height: 20px;
     position: fixed;
     right: 2vh;
+    color: white;
+    font-size: 17px;
   }
 
   .Edit {
@@ -49,15 +52,33 @@ const StyledDiv = styled.div`
 function CardList({ title, description, taskDone, nbTask, id }) {
   const pourcentage = (taskDone / nbTask) * 100;
 
+  const handleDeleteClick = async () => {
+    const confirmed = window.confirm(
+      "Voulez-vous vraiment supprimer cette checklist ?"
+    );
+
+    if (confirmed) {
+      try {
+        const response = await deleteChecklist(id);
+        if (response.done) {
+          console.log("Checklist supprimée avec succès");
+        } else {
+          console.log("La suppression de la checklist a échoué");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la suppression de la checklist :", error);
+      }
+    }
+  };
+
   return (
     <StyledDiv>
       <Card
         className="Card"
         shadow="sm"
         padding="xl"
-        component="a"
-        href={`/list/${id}`}
-        // target="_blank"
+        component={Link}
+        to={`/list/${id}`}
         radius="lg"
       >
         <Text className="Title" fw={800} size="xl" mt="md" ta="left">
@@ -69,12 +90,8 @@ function CardList({ title, description, taskDone, nbTask, id }) {
 
         <Text className="Description" fw={300} size="sm" mt="md" ta="left">
           {description}
-          <a href="#">
-            <img
-              className="Poubelle"
-              src="./Images/Poubelle.svg"
-              alt="PoubelleButton"
-            />
+          <a href="#" className="Poubelle" onClick={handleDeleteClick}>
+            <i className="fa-regular fa-trash-can"></i>
           </a>
         </Text>
 

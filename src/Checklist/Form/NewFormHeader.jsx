@@ -3,18 +3,17 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const NewFormHeader = ({
-  title: initialTitle,
-  description: initialDescription,
+  title,
+  description,
+  onTitleChange,
+  onDescriptionChange,
 }) => {
-  const [title, setTitle] = useState(initialTitle);
-  const [description, setDescription] = useState(initialDescription);
-
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+    onTitleChange(e.target.value);
   };
 
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+    onDescriptionChange(e.target.value);
   };
 
   return (
