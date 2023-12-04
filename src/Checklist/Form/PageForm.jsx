@@ -1,53 +1,125 @@
-import { Card, Button, Checkbox } from "@mantine/core";
+import { Card, Button } from "@mantine/core";
 import styled from "styled-components";
 import uniqid from "uniqid";
-import AddTask from "./AddTask";
-import FormHeader from "./FormHeader";
-import CheckBox from "./CheckBox";
-import checklistsData from "../Data/checklistsData";
-import { useParams } from "react-router-dom";
+import AddTask from "../Composants/AddTask";
+import FormHeader from "../Composants/FormHeader";
+import CheckBox from "../Composants/CheckBox";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getTasksByChecklistId, updateChecklist } from "../Api/apiFunctions";
 
-//fonction qui permet de mettre les tasks checks en dessous des autres
 function PageForm() {
   const { id } = useParams();
-  const checklist = checklistsData.find((item) => item.id === parseInt(id));
-  const sortedTasks = [...checklist.tasks].sort((a, b) => a.done - b.done);
+  const [checklist, setChecklist] = useState({
+    title: "",
+    description: "",
+    todo: [],
+  });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiResponse = await getTasksByChecklistId(id);
+        console.log("API Response:", apiResponse);
+
+        // Mettez à jour l'état en incluant le titre, la description et les tâches
+        setChecklist(apiResponse);
+
+        // Mettez à jour l'état des tâches créées localement
+      } catch (error) {
+        console.error("Erreur lors de la récupération des tâches :", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  //fonction qui permet de mettre les tasks checks en dessous des autres
+  const sortedTasks = [...checklist.todo].sort((a, b) => a.done - b.done);
+
+  const handleTitleChange = (value) => {
+    setTitle(value);
+  };
+
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+  };
+
+  const handleAddTask = (task) => {
+    // Créer une nouvelle tâche avec la structure attendue par l'API
+    const newTask = {
+      title: task, // ou utilisez une autre propriété appropriée de la tâche
+      description: "", // Ajoutez la description si nécessaire
+      statut: 0, // Ou utilisez la valeur par défaut appropriée
+    };
+
+    // Mettez à jour la liste todo de l'état checklist en ajoutant la nouvelle tâche
+    setChecklist((prevChecklist) => ({
+      ...prevChecklist,
+      todo: [...prevChecklist.todo, newTask],
+    }));
+  };
+
+  const handleSave = async () => {
+    try {
+      console.log("Current state before sending:", {
+        title: title !== "" ? title : checklist.title,
+        description: description !== "" ? description : checklist.description,
+        todo: checklist.todo,
+        id: id,
+      });
+
+      const response = await updateChecklist(
+        id,
+        title !== "" ? title : checklist.title,
+        description !== "" ? description : checklist.description,
+        checklist.todo
+      );
+      navigate("/"); //Retourner sur le dashboard après avoir save
+      console.log("Checklist mise à jour avec succès :", response);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la checklist :", error);
+    }
+  };
 
   return (
-    <>
-      <StyledDiv>
-        <Card
-          className="Card"
-          shadow="sm"
-          padding="xl"
-          component="div"
+    <StyledDiv>
+      <Card
+        className="Card"
+        shadow="sm"
+        padding="xl"
+        component="div"
+        radius="xl"
+      >
+        <FormHeader
+          title={checklist.title}
+          description={checklist.description}
+          onTitleChange={handleTitleChange}
+          onDescriptionChange={handleDescriptionChange}
+        />
+        <div>
+          {sortedTasks.map(({ title, statut }) => (
+            <CheckBox key={uniqid()} title={title} statut={statut === 1} />
+          ))}
+        </div>
+        <div>
+          <AddTask onAddTask={handleAddTask} />
+        </div>
+        <Button
+          className="Button"
+          variant="outline"
+          color="rgba(255, 255, 255, 1)"
+          size="md"
           radius="xl"
+          onClick={handleSave}
         >
-          <FormHeader
-            title={checklist.title}
-            description={checklist.description}
-          />
-          <div>
-            {/* {sortedTasks.map((task) => (
-              <CheckBox key={uniqid} {...task} />
-            ))} */}
-            {sortedTasks.map(({ task, done }) => (
-              <CheckBox key={uniqid()} task={task} done={done} />
-            ))}
-          </div>
-          <AddTask />
-          <Button
-            className="Button"
-            variant="outline"
-            color="rgba(255, 255, 255, 1)"
-            size="md"
-            radius="xl"
-          >
-            Save
-          </Button>
-        </Card>
-      </StyledDiv>
-    </>
+          Save
+        </Button>
+      </Card>
+    </StyledDiv>
   );
 }
 

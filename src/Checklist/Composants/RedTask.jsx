@@ -23,8 +23,10 @@ const StyledTask = styled.div`
   }
 `;
 
-function RedTask({ task, statut, onChange }) {
-  const [isChecked, setIsChecked] = useState(statut === 2);
+function RedTask({ title, statut, onChange }) {
+  const [isChecked, setIsChecked] = useState(statut === 0);
+
+  console.log({ statut });
 
   const toggleCheck = () => {
     setIsChecked(!isChecked);
@@ -39,19 +41,19 @@ function RedTask({ task, statut, onChange }) {
   return (
     <StyledTask statut={isChecked ? 2 : 0}>
       <img src={check} alt="Circle" className="Circle" onClick={toggleCheck} />
-      <p>{task}</p>
+      <p>{title}</p>
     </StyledTask>
   );
 }
 
 RedTask.propTypes = {
-  task: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   statut: PropTypes.number.isRequired,
   onChange: PropTypes.func,
 };
 
 RedTask.defaultProps = {
-  task: "Default Task",
+  title: "Default Task",
   statut: 0,
 };
 

@@ -52,7 +52,9 @@ const StyledDiv = styled.div`
 function CardList({ title, description, taskDone, nbTask, id }) {
   const pourcentage = (taskDone / nbTask) * 100;
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (event) => {
+    event.preventDefault(); // Empêche le comportement par défaut du lien
+
     const confirmed = window.confirm(
       "Voulez-vous vraiment supprimer cette checklist ?"
     );
@@ -62,6 +64,8 @@ function CardList({ title, description, taskDone, nbTask, id }) {
         const response = await deleteChecklist(id);
         if (response.done) {
           console.log("Checklist supprimée avec succès");
+          // Actualise la page après la suppression
+          window.location.reload();
         } else {
           console.log("La suppression de la checklist a échoué");
         }
@@ -116,6 +120,7 @@ CardList.propTypes = {
   description: PropTypes.string,
   taskDone: PropTypes.number,
   nbTask: PropTypes.number,
+  id: PropTypes.number,
 };
 
 CardList.defaultProps = {

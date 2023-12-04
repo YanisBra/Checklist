@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const NewFormHeader = ({
-  title,
-  description,
+const FormHeader = ({
+  title: initialTitle,
+  description: initialDescription,
   onTitleChange,
   onDescriptionChange,
 }) => {
+  const [title, setTitle] = useState(initialTitle);
+  const [description, setDescription] = useState(initialDescription);
+
   const handleTitleChange = (e) => {
-    onTitleChange(e.target.value);
+    const newValue = e.target.value;
+    setTitle(newValue);
+    onTitleChange(newValue); // Appel de la fonction parente pour mettre à jour le titre dans le composant parent
   };
 
   const handleDescriptionChange = (e) => {
-    onDescriptionChange(e.target.value);
+    const newValue = e.target.value;
+    setDescription(newValue);
+    onDescriptionChange(newValue); // Appel de la fonction parente pour mettre à jour la description dans le composant parent
   };
 
   return (
@@ -26,7 +33,7 @@ const NewFormHeader = ({
           type="text"
           id="title"
           name="title"
-          placeholder="Enter title"
+          placeholder={initialTitle}
           value={title}
           onChange={handleTitleChange}
         />
@@ -39,7 +46,7 @@ const NewFormHeader = ({
           type="text"
           id="description"
           name="description"
-          placeholder="Enter description"
+          placeholder={initialDescription}
           value={description}
           onChange={handleDescriptionChange}
         />
@@ -110,14 +117,18 @@ const DescriptionDiv = styled.div`
 `;
 
 //propTypes
-NewFormHeader.propTypes = {
+FormHeader.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
+  onTitleChange: PropTypes.func,
+  onDescriptionChange: PropTypes.func,
 };
 
-NewFormHeader.defaultProps = {
+FormHeader.defaultProps = {
   title: "Title",
   description: "Description...",
+  onTitleChange: () => {},
+  onDescriptionChange: () => {},
 };
 
-export default NewFormHeader;
+export default FormHeader;

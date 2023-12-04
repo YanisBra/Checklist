@@ -3,8 +3,8 @@ import { Checkbox } from "@mantine/core";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-function CheckBox({ done, task }) {
-  const [isChecked, setIsChecked] = useState(done);
+function CheckBox({ statut, title }) {
+  const [isChecked, setIsChecked] = useState(statut);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
@@ -20,7 +20,7 @@ function CheckBox({ done, task }) {
           iconColor="#ef476f"
           size="md"
           radius="xl"
-          label={task}
+          label={title}
         />
       </>
       <div className="image">
@@ -53,13 +53,13 @@ const StyledCheckBox = styled.div`
 //propTypes
 
 CheckBox.propTypes = {
-  task: PropTypes.string.isRequired,
-  done: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  statut: PropTypes.number,
 };
 
 CheckBox.defaultProps = {
-  task: "Default Task",
-  done: false,
+  title: "Default Task",
+  statut: 0,
 };
 
 export default CheckBox;

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Card, Button } from "@mantine/core";
 import styled from "styled-components";
-import AddTask from "./AddTask";
-import NewFormHeader from "./NewFormHeader";
-import CheckBox from "./CheckBox"; // Assurez-vous d'importer CheckBox
-import { addChecklist, prepareChecklistData } from "../Api/apiFunctions";
+import AddTask from "../Composants/AddTask";
+import { useNavigate } from "react-router-dom";
+// import NewFormHeader from "./NewFormHeader";
+import FormHeader from "../Composants/FormHeader";
+import { addChecklist } from "../Api/apiFunctions";
+import WhiteTask from "../Composants/WhiteTask";
+// import CheckBox from "./CheckBox";
 
 function FormAddChecklist() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [todo, setTodo] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleTitleChange = (value) => {
     setTitle(value);
@@ -19,8 +24,16 @@ function FormAddChecklist() {
     setDescription(value);
   };
 
-  const handleAddTask = (task) => {
-    setTasks((prevTasks) => [...prevTasks, task]);
+  const handleAddTask = (title) => {
+    setTodo((prevTasks) => [...prevTasks, title]);
+  };
+
+  const handleDeleteTask = (index) => {
+    setTodo((prevTasks) => {
+      const updatedTasks = [...prevTasks];
+      updatedTasks.splice(index, 1); // Supprimez la tâche à l'index spécifié
+      return updatedTasks;
+    });
   };
 
   const handleSave = async () => {
@@ -28,17 +41,13 @@ function FormAddChecklist() {
       console.log("Current state before sending:", {
         title,
         description,
-        tasks,
+        todo,
       });
-      const checklistData = prepareChecklistData(title, description, tasks);
-      console.log("ChecklistData to be sent:", checklistData); // Ajoutez cette ligne
-      const response = await addChecklist(
-        checklistData.title,
-        checklistData.description,
-        checklistData.todo
-      );
+      // const checklistData = prepareChecklistData(title, description, todo);
+      // console.log("ChecklistData to be sent:", checklistData); // Ajoutez cette ligne
+      const response = await addChecklist(title, description, todo);
       console.log("Checklist ajoutée avec succès:", response);
-      // Ajoutez ici des actions supplémentaires si nécessaire
+      navigate("/"); //Retourner sur le dashboard après avoir save
     } catch (error) {
       console.error("Erreur lors de l'ajout de la checklist:", error);
       // Ajoutez ici des actions supplémentaires en cas d'erreur
@@ -55,15 +64,19 @@ function FormAddChecklist() {
           component="div"
           radius="xl"
         >
-          <NewFormHeader
+          <FormHeader
             title={title}
             description={description}
             onTitleChange={handleTitleChange}
             onDescriptionChange={handleDescriptionChange}
           />
           <div>
-            {tasks.map((task, index) => (
-              <CheckBox key={index} task={task} done={false} />
+            {todo.map((title, index) => (
+              <WhiteTask
+                key={index}
+                title={title}
+                onDelete={() => handleDeleteTask(index)}
+              />
             ))}
           </div>
           <div>

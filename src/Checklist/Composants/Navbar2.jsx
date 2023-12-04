@@ -34,6 +34,7 @@ const StyledNavbar = styled(Navbar)`
   .Entreprise {
     display: flex;
     align-items: center;
+    margin-left: auto;
   }
 
   .Logo {
@@ -79,15 +80,11 @@ const StyledNavbar = styled(Navbar)`
 const Navbar2 = () => {
   return (
     <StyledNavbar>
-      <Button
-        className="Home"
-        radius="lg"
-        variant="filled"
-        size="xl"
-        href="youtube.com"
-      >
-        Home
-      </Button>
+      <Link to="/" className="Link">
+        <Button className="Home" radius="lg" variant="filled" size="xl">
+          Home
+        </Button>
+      </Link>
 
       <div className="Entreprise">
         <img src="./Images/Logo.png" alt="Logo" className="Logo" />

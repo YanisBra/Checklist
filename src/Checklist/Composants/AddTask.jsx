@@ -8,7 +8,7 @@ const AddTask = ({ onAddTask }) => {
     setTask(e.target.value);
   };
 
-  const handleAddTask = () => {
+  const handleTaskAdd = () => {
     if (task.trim() !== "") {
       onAddTask(task);
       setTask(""); // Réinitialisez l'entrée après l'ajout de la tâche
@@ -17,13 +17,13 @@ const AddTask = ({ onAddTask }) => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleAddTask();
+      handleTaskAdd();
     }
   };
 
   return (
     <Add>
-      <i className="fa-solid fa-plus" onClick={handleAddTask}></i>
+      <i className="fa-solid fa-plus" onClick={handleTaskAdd}></i>
       <input
         type="text"
         placeholder="Add a task..."
