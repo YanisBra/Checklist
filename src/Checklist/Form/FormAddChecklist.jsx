@@ -60,7 +60,7 @@ function FormAddChecklist() {
         todo,
       });
 
-      const response = await addChecklist(title, description, todo);
+      const response = await addChecklist(title, description, todo, statut);
       console.log("Checklist ajoutée avec succès:", response);
       navigate("/"); //Retourner sur le dashboard après avoir save
     } catch (error) {

@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function RedTask({ title, statut, onChange }) {
+function RedTask({ title, description, statut, onChange }) {
   const [isChecked, setIsChecked] = useState(statut === 2);
 
+  useEffect(() => {
+    setIsChecked(statut === 2);
+  }, [statut]);
+
   const toggleCheck = () => {
+    const newStatut = isChecked ? 0 : 2;
     setIsChecked(!isChecked);
 
-    onChange && onChange(!isChecked);
+    onChange && onChange(description, newStatut);
   };
 
   const check = isChecked ? "/Images/CheckCircle.svg" : "/Images/Circle.svg";

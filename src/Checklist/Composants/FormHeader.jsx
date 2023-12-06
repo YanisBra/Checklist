@@ -26,7 +26,7 @@ const FormHeader = ({
   return (
     <Header>
       <TitleDiv>
-        <label className="Title" htmlFor="title">
+        <label htmlFor="title" className="Title">
           Title :
         </label>
         <input
@@ -36,10 +36,11 @@ const FormHeader = ({
           placeholder={initialTitle}
           value={title}
           onChange={handleTitleChange}
+          required
         />
       </TitleDiv>
       <DescriptionDiv>
-        <label className="Description" htmlFor="description">
+        <label htmlFor="description" className="Description">
           Description :
         </label>
         <input
