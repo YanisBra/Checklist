@@ -131,7 +131,7 @@ function PageForm() {
               key={description}
               title={title}
               statut={statut}
-              id={description} // Passer l'ID de la tâche
+              description={description} // Passer l'ID de la tâche
               onChange={handleUpdateTaskStatus} // Passer la fonction de mise à jour du statut
               onDelete={() => handleDeleteTask(title)}
             />
