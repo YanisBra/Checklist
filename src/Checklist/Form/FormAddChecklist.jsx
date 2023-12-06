@@ -39,8 +39,16 @@ function FormAddChecklist() {
       const updatedTasks = prevTasks.filter(
         (task) => task.description !== taskId
       );
-      console.log("Updated Tasks:", updatedTasks);
       return updatedTasks;
+    });
+  };
+
+  const handleUpdateTaskTitle = (taskId, newTitle) => {
+    setTodo((prevTodo) => {
+      const updatedTodo = prevTodo.map((task) =>
+        task.description === taskId ? { ...task, title: newTitle } : task
+      );
+      return updatedTodo;
     });
   };
 
@@ -51,8 +59,7 @@ function FormAddChecklist() {
         description,
         todo,
       });
-      // const checklistData = prepareChecklistData(title, description, todo);
-      // console.log("ChecklistData to be sent:", checklistData); // Ajoutez cette ligne
+
       const response = await addChecklist(title, description, todo);
       console.log("Checklist ajoutée avec succès:", response);
       navigate("/"); //Retourner sur le dashboard après avoir save
@@ -81,10 +88,12 @@ function FormAddChecklist() {
           <div>
             {todo.map((task) => (
               <WhiteTask
-                key={uniqid()}
+                key={task.description}
                 title={task.title}
+                description={task.description}
                 onDelete={() => handleDeleteTask(task.description)}
-              /> // Utilisez la description comme ID
+                onUpdateTitle={handleUpdateTaskTitle}
+              />
             ))}
           </div>
           <div>

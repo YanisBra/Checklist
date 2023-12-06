@@ -60,10 +60,10 @@ function PageForm() {
     }));
   };
 
-  const handleDeleteTask = (title) => {
+  const handleDeleteTask = (taskId) => {
     setChecklist((prevChecklist) => {
       const updatedTodo = prevChecklist.todo.filter(
-        (task) => task.title !== title
+        (task) => task.description !== taskId
       );
       return {
         ...prevChecklist,
@@ -76,6 +76,19 @@ function PageForm() {
     setChecklist((prevChecklist) => {
       const updatedTodo = prevChecklist.todo.map((task) =>
         task.description === taskId ? { ...task, statut: newStatus } : task
+      );
+
+      return {
+        ...prevChecklist,
+        todo: updatedTodo,
+      };
+    });
+  };
+
+  const handleUpdateTaskTitle = (taskId, newTitle) => {
+    setChecklist((prevChecklist) => {
+      const updatedTodo = prevChecklist.todo.map((task) =>
+        task.description === taskId ? { ...task, title: newTitle } : task
       );
 
       return {
@@ -133,7 +146,8 @@ function PageForm() {
               statut={statut}
               description={description} // Passer l'ID de la tâche
               onChange={handleUpdateTaskStatus} // Passer la fonction de mise à jour du statut
-              onDelete={() => handleDeleteTask(title)}
+              onUpdateTitle={handleUpdateTaskTitle}
+              onDelete={() => handleDeleteTask(description)}
             />
           ))}
         </div>
@@ -156,7 +170,6 @@ function PageForm() {
 }
 
 //CSS
-
 const StyledDiv = styled.div`
   width: 50vw;
   height: 70;

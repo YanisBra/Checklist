@@ -2,9 +2,15 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-function WhiteTask({ title, statut, onChange, onDelete, description }) {
+function WhiteTask({
+  title,
+  description,
+  statut,
+  onChange,
+  onDelete,
+  onUpdateTitle,
+}) {
   const [isChecked, setIsChecked] = useState(statut === 2);
-  const [editableTitle, setEditableTitle] = useState(title);
 
   useEffect(() => {
     setIsChecked(statut === 2);
@@ -18,7 +24,8 @@ function WhiteTask({ title, statut, onChange, onDelete, description }) {
   };
 
   const handleTitleChange = (e) => {
-    setEditableTitle(e.target.value);
+    const newTitle = e.target.value;
+    onUpdateTitle && onUpdateTitle(description, newTitle);
   };
 
   const check = isChecked
@@ -28,7 +35,7 @@ function WhiteTask({ title, statut, onChange, onDelete, description }) {
   return (
     <StyledTask statut={statut}>
       <img src={check} alt="Circle" className="Circle" onClick={toggleCheck} />
-      <input type="text" value={editableTitle} onChange={handleTitleChange} />
+      <input type="text" value={title} onChange={handleTitleChange} />
       <i className="fa-regular fa-trash-can" onClick={onDelete}></i>
     </StyledTask>
   );

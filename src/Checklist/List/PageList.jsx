@@ -40,11 +40,7 @@ const PageList = () => {
         <h1>{checklist.title}</h1>
         <h2>{checklist.description}</h2>
         {sortedTasks.map(({ title, statut }) => (
-          <RedTask
-            key={uniqid()}
-            title={title} // Assurez-vous d'ajuster en fonction de la structure réelle de votre objet
-            statut={statut} // Supposons que statut égal à 1 signifie "done"
-          />
+          <RedTask key={uniqid()} title={title} statut={statut} />
         ))}
       </StyledList>
     </>
