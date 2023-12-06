@@ -72,6 +72,19 @@ function PageForm() {
     });
   };
 
+  const handleUpdateTaskStatus = (taskId, newStatus) => {
+    setChecklist((prevChecklist) => {
+      const updatedTodo = prevChecklist.todo.map((task) =>
+        task.description === taskId ? { ...task, statut: newStatus } : task
+      );
+
+      return {
+        ...prevChecklist,
+        todo: updatedTodo,
+      };
+    });
+  };
+
   const handleSave = async () => {
     try {
       console.log("Current state before sending:", {
@@ -118,6 +131,8 @@ function PageForm() {
               key={description}
               title={title}
               statut={statut}
+              id={description} // Passer l'ID de la tâche
+              onChange={handleUpdateTaskStatus} // Passer la fonction de mise à jour du statut
               onDelete={() => handleDeleteTask(title)}
             />
           ))}

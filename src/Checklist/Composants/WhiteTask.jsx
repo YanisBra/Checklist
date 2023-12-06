@@ -96,7 +96,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-function WhiteTask({ title, statut, onChange, onDelete }) {
+function WhiteTask({ title, statut, onChange, onDelete, id }) {
   const [isChecked, setIsChecked] = useState(statut === 2);
   const [editableTitle, setEditableTitle] = useState(title);
 
@@ -109,7 +109,7 @@ function WhiteTask({ title, statut, onChange, onDelete }) {
     setIsChecked(!isChecked);
 
     if (onChange) {
-      onChange(editableTitle, newStatut);
+      onChange(id, newStatut);
     }
   };
 
@@ -129,7 +129,6 @@ function WhiteTask({ title, statut, onChange, onDelete }) {
         value={editableTitle}
         onChange={handleTitleChange}
         onBlur={() => {
-          // Mettez à jour le statut avec la dernière valeur isChecked
           if (onChange) {
             onChange(editableTitle, isChecked ? 2 : 0);
           }

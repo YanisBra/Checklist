@@ -43,7 +43,7 @@ const PageList = () => {
           <RedTask
             key={uniqid()}
             title={title} // Assurez-vous d'ajuster en fonction de la structure réelle de votre objet
-            statut={statut === 1} // Supposons que statut égal à 1 signifie "done"
+            statut={statut} // Supposons que statut égal à 1 signifie "done"
           />
         ))}
       </StyledList>
