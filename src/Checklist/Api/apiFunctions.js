@@ -13,16 +13,15 @@ import api from "./api";
 //   };
 // };
 
-// Fonction pour ajouter une checklist
 export const addChecklist = async (title, description, todo) => {
   try {
     const response = await api.post("/checklist/add", {
       title,
       description,
       todo: todo.map((task) => ({
-        title: task || "", // Ajoutez une propriété title
-        description: "", // Ajoutez une propriété description, à ajuster si nécessaire
-        statut: 0, // Ajoutez une propriété statut, à ajuster si nécessaire
+        title: task.title || "",
+        description: task.description || "",
+        statut: task.statut || 0,
       })),
     });
 
@@ -32,6 +31,26 @@ export const addChecklist = async (title, description, todo) => {
     throw error;
   }
 };
+
+// Fonction pour ajouter une checklist
+// export const addChecklist = async (title, description, todo) => {
+//   try {
+//     const response = await api.post("/checklist/add", {
+//       title,
+//       description,
+//       todo: todo.map((task) => ({
+//         title: task || "", // Ajoutez une propriété title
+//         description: "", // Ajoutez une propriété description, à ajuster si nécessaire
+//         statut: 0, // Ajoutez une propriété statut, à ajuster si nécessaire
+//       })),
+//     });
+
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error adding checklist:", error);
+//     throw error;
+//   }
+// };
 
 // Fonction pour récupérer toutes les checklists
 export const getChecklists = async () => {

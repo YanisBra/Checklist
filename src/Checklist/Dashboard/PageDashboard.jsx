@@ -27,14 +27,13 @@ const PageDashboard = () => {
   return (
     <StyledDashboard>
       <ContainerDiv>
-        {checklistsData.map(({ id, title, description, nbTask, taskDone }) => (
+        {checklistsData.map(({ id, title, description, todo }) => (
           <CardList
             key={id}
             id={id}
             title={title}
             description={description}
-            nbTask={nbTask}
-            taskDone={taskDone}
+            todo={todo}
           />
         ))}
       </ContainerDiv>

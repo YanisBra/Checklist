@@ -49,9 +49,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-function CardList({ title, description, taskDone, nbTask, id }) {
-  const pourcentage = (taskDone / nbTask) * 100;
-
+function CardList({ title, description, id, todo }) {
   const handleDeleteClick = async (event) => {
     event.preventDefault(); // Empêche le comportement par défaut du lien
 
@@ -74,6 +72,17 @@ function CardList({ title, description, taskDone, nbTask, id }) {
       }
     }
   };
+
+  //Nombre de task dans mon todo
+  const nbTask = todo.length;
+
+  //nombre de task done dans le todo
+  const taskDone = todo.filter((task) => task.statut === 2).length;
+
+  //pourcentage sur le nombre de task done sur le total
+  const pourcentage = (taskDone / nbTask) * 100;
+
+  // console.log("nbTask :", nbTask, "taskDone :", taskDone);
 
   return (
     <StyledDiv>
@@ -126,8 +135,8 @@ CardList.propTypes = {
 CardList.defaultProps = {
   title: "Default Title",
   description: "Default Description",
-  taskDone: 5,
-  nbTask: 10,
+  taskDone: 1,
+  nbTask: 0,
 };
 
 export default CardList;

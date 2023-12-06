@@ -7,6 +7,7 @@ import CheckBox from "../Composants/CheckBox";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getTasksByChecklistId, updateChecklist } from "../Api/apiFunctions";
+import WhiteTask from "../Composants/WhiteTask";
 
 function PageForm() {
   const { id } = useParams();
@@ -37,9 +38,6 @@ function PageForm() {
     fetchData();
   }, [id]);
 
-  //fonction qui permet de mettre les tasks checks en dessous des autres
-  const sortedTasks = [...checklist.todo].sort((a, b) => a.done - b.done);
-
   const handleTitleChange = (value) => {
     setTitle(value);
   };
@@ -49,11 +47,10 @@ function PageForm() {
   };
 
   const handleAddTask = (task) => {
-    // Créer une nouvelle tâche avec la structure attendue par l'API
     const newTask = {
-      title: task, // ou utilisez une autre propriété appropriée de la tâche
-      description: "", // Ajoutez la description si nécessaire
-      statut: 0, // Ou utilisez la valeur par défaut appropriée
+      title: task,
+      description: uniqid(),
+      statut: 0,
     };
 
     // Mettez à jour la liste todo de l'état checklist en ajoutant la nouvelle tâche
@@ -61,6 +58,18 @@ function PageForm() {
       ...prevChecklist,
       todo: [...prevChecklist.todo, newTask],
     }));
+  };
+
+  const handleDeleteTask = (title) => {
+    setChecklist((prevChecklist) => {
+      const updatedTodo = prevChecklist.todo.filter(
+        (task) => task.title !== title
+      );
+      return {
+        ...prevChecklist,
+        todo: updatedTodo,
+      };
+    });
   };
 
   const handleSave = async () => {
@@ -85,6 +94,9 @@ function PageForm() {
     }
   };
 
+  //fonction qui permet de mettre les tasks checks en dessous des autres
+  const sortedTasks = [...checklist.todo].sort((a, b) => a.done - b.done);
+
   return (
     <StyledDiv>
       <Card
@@ -101,8 +113,13 @@ function PageForm() {
           onDescriptionChange={handleDescriptionChange}
         />
         <div>
-          {sortedTasks.map(({ title, statut }) => (
-            <CheckBox key={uniqid()} title={title} statut={statut === 1} />
+          {sortedTasks.map(({ title, statut, description }) => (
+            <WhiteTask
+              key={description}
+              title={title}
+              statut={statut}
+              onDelete={() => handleDeleteTask(title)}
+            />
           ))}
         </div>
         <div>

@@ -51,8 +51,7 @@ const PageList = () => {
   );
 };
 
-// Le reste du code reste inchangé...
-
+//CSS
 const StyledList = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,17 +62,19 @@ const StyledList = styled.div`
   & h1 {
     font-weight: 900;
     font-size: 40px;
+    text-align: center;
   }
 
   & h2 {
-    font-weight: normal;
-    font-size: 15px;
+    font-weight: bold;
+    font-size: 17px;
     margin-top: 20px;
     text-align: center;
     margin: 20px 100px;
   }
 `;
 
+//PropTypes
 PageList.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

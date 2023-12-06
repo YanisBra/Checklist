@@ -8,6 +8,7 @@ import FormHeader from "../Composants/FormHeader";
 import { addChecklist } from "../Api/apiFunctions";
 import WhiteTask from "../Composants/WhiteTask";
 // import CheckBox from "./CheckBox";
+import uniqid from "uniqid";
 
 function FormAddChecklist() {
   const [title, setTitle] = useState("");
@@ -24,14 +25,21 @@ function FormAddChecklist() {
     setDescription(value);
   };
 
-  const handleAddTask = (title) => {
-    setTodo((prevTasks) => [...prevTasks, title]);
+  const handleAddTask = (task) => {
+    const newTask = {
+      title: task,
+      description: uniqid(),
+      statut: 0,
+    };
+    setTodo((prevTodo) => [...prevTodo, newTask]);
   };
 
-  const handleDeleteTask = (index) => {
+  const handleDeleteTask = (taskId) => {
     setTodo((prevTasks) => {
-      const updatedTasks = [...prevTasks];
-      updatedTasks.splice(index, 1); // Supprimez la tâche à l'index spécifié
+      const updatedTasks = prevTasks.filter(
+        (task) => task.description !== taskId
+      );
+      console.log("Updated Tasks:", updatedTasks);
       return updatedTasks;
     });
   };
@@ -71,12 +79,12 @@ function FormAddChecklist() {
             onDescriptionChange={handleDescriptionChange}
           />
           <div>
-            {todo.map((title, index) => (
+            {todo.map((task) => (
               <WhiteTask
-                key={index}
-                title={title}
-                onDelete={() => handleDeleteTask(index)}
-              />
+                key={uniqid()}
+                title={task.title}
+                onDelete={() => handleDeleteTask(task.description)}
+              /> // Utilisez la description comme ID
             ))}
           </div>
           <div>
