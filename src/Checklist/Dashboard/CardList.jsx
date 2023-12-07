@@ -30,18 +30,10 @@ const StyledDiv = styled.div`
   .Edit,
   .Poubelle {
     height: 20px;
-    position: fixed;
+    position: absolute;
     right: 2vh;
     color: white;
     font-size: 17px;
-  }
-
-  .Edit {
-    float: right;
-  }
-
-  .Poubelle {
-    float: left;
   }
 
   @media screen and (max-width: 700px) {
@@ -119,6 +111,7 @@ function CardList({ title, description, id, todo }) {
           striped
           animated
         />
+        <Text className="Tasks" amt="xs" size="sm" ta="center"></Text>
       </Card>
     </StyledDiv>
   );

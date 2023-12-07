@@ -6,11 +6,16 @@ import FormHeader from "../Composants/FormHeader";
 import CheckBox from "../Composants/CheckBox";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getTasksByChecklistId, updateChecklist } from "../Api/apiFunctions";
+import {
+  getTasksByChecklistId,
+  updateChecklist,
+  updateChecklistStatus,
+} from "../Api/apiFunctions";
 import WhiteTask from "../Composants/WhiteTask";
 
 function PageForm() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [checklist, setChecklist] = useState({
     title: "",
     description: "",
@@ -18,7 +23,6 @@ function PageForm() {
   });
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,23 +104,43 @@ function PageForm() {
 
   const handleSave = async () => {
     try {
-      console.log("Current state before sending:", {
-        title: title !== "" ? title : checklist.title,
-        description: description !== "" ? description : checklist.description,
-        todo: checklist.todo,
-        id: id,
-      });
+      // Step 1: Check the state of tasks
+      const areAllTasksDone = checklist.todo.every((task) => task.statut === 2);
+      const isAnyTaskDone = checklist.todo.some((task) => task.statut === 2);
 
+      // Step 2: Determine the new checklist status based on tasks
+      let newChecklistStatus = 0;
+
+      if (areAllTasksDone) {
+        newChecklistStatus = 2; // If all tasks are done, checklist status is set to 2
+      } else if (isAnyTaskDone) {
+        newChecklistStatus = 1; // If at least one task is done, checklist status is set to 1
+      }
+
+      // Step 3: Update the checklist status
+      console.log("newChecklistStatus", newChecklistStatus);
+      await updateChecklistStatus(id, newChecklistStatus);
+
+      // Step 4: Update the checklist
       const response = await updateChecklist(
         id,
         title !== "" ? title : checklist.title,
         description !== "" ? description : checklist.description,
         checklist.todo
       );
-      navigate("/"); //Retourner sur le dashboard après avoir save
-      console.log("Checklist mise à jour avec succès :", response);
+
+      // Step 5: Update the local checklist status
+      setChecklist((prevChecklist) => ({
+        ...prevChecklist,
+        statut: newChecklistStatus,
+      }));
+
+      // Step 6: Navigate to the dashboard after saving
+      navigate("/");
+
+      console.log("Checklist updated successfully:", response);
     } catch (error) {
-      console.error("Erreur lors de la mise à jour de la checklist :", error);
+      console.error("Error updating the checklist:", error);
     }
   };
 
@@ -144,8 +168,8 @@ function PageForm() {
               key={description}
               title={title}
               statut={statut}
-              description={description} // Passer l'ID de la tâche
-              onChange={handleUpdateTaskStatus} // Passer la fonction de mise à jour du statut
+              description={description}
+              onChange={handleUpdateTaskStatus}
               onUpdateTitle={handleUpdateTaskTitle}
               onDelete={() => handleDeleteTask(description)}
             />

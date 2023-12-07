@@ -5,10 +5,11 @@ import RedTask from "../Composants/RedTask";
 import PropTypes from "prop-types";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTasksByChecklistId } from "../Api/apiFunctions";
-import { updateChecklist } from "../Api/apiFunctions";
+import { updateChecklist, updateChecklistStatus } from "../Api/apiFunctions";
 
 const PageList = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [checklist, setChecklist] = useState({
     title: "",
     description: "",
@@ -46,20 +47,34 @@ const PageList = () => {
 
   const handleSave = async () => {
     try {
-      console.log("Current state before sending:", {
-        title: checklist.title,
-        description: checklist.description,
-        todo: checklist.todo,
-        id: id,
-      });
+      // Step 1: Check the state of tasks
 
+      const areAllTasksDone = checklist.todo.every((task) => task.statut === 2);
+      const isAnyTaskDone = checklist.todo.some((task) => task.statut === 2);
+
+      // Step 2: Determine the new checklist status based on tasks
+      let newChecklistStatus = 0;
+
+      if (areAllTasksDone) {
+        newChecklistStatus = 2; // If all tasks are done, checklist status is set to 2
+      } else if (isAnyTaskDone) {
+        newChecklistStatus = 1; // If at least one task is done, checklist status is set to 1
+      }
+
+      // Step 3: Update the checklist status
+      console.log("newChecklistStatus", newChecklistStatus);
+      await updateChecklistStatus(id, newChecklistStatus);
+
+      // Step 4: Update the checklist
       const response = await updateChecklist(
         id,
         checklist.title,
         checklist.description,
         checklist.todo
       );
-      // navigate("/"); //Retourner sur le dashboard après avoir save
+
+      // Step 5: Navigate to the dashboard after saving
+      navigate("/");
       console.log("Checklist mise à jour avec succès :", response);
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la checklist :", error);
@@ -77,10 +92,10 @@ const PageList = () => {
         {sortedTasks.map(({ title, description, statut }) => (
           <RedTask
             key={uniqid}
-            title={title} // Assurez-vous d'ajuster en fonction de la structure réelle de votre objet
+            title={title}
             description={description}
-            statut={statut} // Supposons que statut égal à 1 signifie "done"
-            onChange={handleUpdateTaskStatus} // Passer la fonction de mise à jour du statut
+            statut={statut}
+            onChange={handleUpdateTaskStatus}
           />
         ))}
       </StyledList>

@@ -41,10 +41,14 @@ const Add = styled.div`
   align-items: center;
   margin-bottom: 30px;
   text-decoration: none;
+  background-color: #f78aa2;
+  border-radius: 10px;
+  height: 30px;
 
   i {
     margin-right: 20px;
     font-size: 20px;
+    margin-left: 5px;
 
     &:hover {
       cursor: pointer;
@@ -57,7 +61,7 @@ const Add = styled.div`
     font-size: 16px;
     background-color: transparent;
     color: white;
-    width: 150px;
+    width: 50vw;
 
     &::placeholder {
       color: white;

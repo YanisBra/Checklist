@@ -68,3 +68,15 @@ export const updateChecklist = async (
     throw error;
   }
 };
+
+export const updateChecklistStatus = async (checklistId, newStatus) => {
+  try {
+    const response = await api.get(
+      `/checklist/statut?id=${checklistId}&statut=${newStatus}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating checklist status:", error);
+    throw error;
+  }
+};
