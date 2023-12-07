@@ -4,6 +4,87 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { deleteChecklist } from "../Api/apiFunctions";
 
+function CardList({ title, description, statut, id, todo }) {
+  const handleDeleteClick = async (event) => {
+    event.preventDefault(); // Prevents the default behavior of the link
+
+    const confirmed = window.confirm(
+      "Do you really want to delete this checklist?"
+    );
+
+    if (confirmed) {
+      try {
+        const response = await deleteChecklist(id);
+        if (response.done) {
+          console.log("Checklist deleted successfully");
+          // Refresh the page after deletion
+          window.location.reload();
+        } else {
+          console.log("Checklist deletion failed");
+        }
+      } catch (error) {
+        console.error("Error deleting checklist:", error);
+      }
+    }
+  };
+
+  // Determine the status based on the statut value
+  const status =
+    statut === 0 ? "Not started" : statut === 1 ? "In progress" : "Completed";
+
+  // Number of tasks in the todo
+  const nbTask = todo.length;
+
+  // Number of tasks done in the todo
+  const taskDone = todo.filter((task) => task.statut === 2).length;
+
+  // Percentage of tasks done compared to the total
+  const pourcentage = (taskDone / nbTask) * 100;
+
+  return (
+    <StyledDiv>
+      <Card
+        className="Card"
+        shadow="sm"
+        padding="xl"
+        component={Link}
+        to={`/list/${id}`}
+        radius="lg"
+      >
+        <Text className="Title" fw={800} size="xl" mt="md" ta="left">
+          {title}
+          <Link to={`/form/${id}`}>
+            <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
+          </Link>
+        </Text>
+
+        <Text className="Description" fw={300} size="sm" mt="md" ta="left">
+          {description}
+          <i
+            className="fa-regular fa-trash-can"
+            id="Poubelle"
+            onClick={handleDeleteClick}
+          ></i>
+        </Text>
+
+        <Text className="Tasks" amt="xs" size="sm" ta="center">
+          {status} : {taskDone} tasks on {nbTask} completed
+        </Text>
+        <Progress
+          color="#26547C"
+          radius="xl"
+          size="xl"
+          value={pourcentage}
+          striped
+          animated
+        />
+        <Text className="Tasks" amt="xs" size="sm" ta="center"></Text>
+      </Card>
+    </StyledDiv>
+  );
+}
+
+//CSS
 const StyledDiv = styled.div`
   width: 50vw;
   margin: 20px auto;
@@ -28,7 +109,7 @@ const StyledDiv = styled.div`
   }
 
   .Edit,
-  .Poubelle {
+  #Poubelle {
     height: 20px;
     position: absolute;
     right: 2vh;
@@ -41,82 +122,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-function CardList({ title, description, id, todo }) {
-  const handleDeleteClick = async (event) => {
-    event.preventDefault(); // Empêche le comportement par défaut du lien
-
-    const confirmed = window.confirm(
-      "Voulez-vous vraiment supprimer cette checklist ?"
-    );
-
-    if (confirmed) {
-      try {
-        const response = await deleteChecklist(id);
-        if (response.done) {
-          console.log("Checklist supprimée avec succès");
-          // Actualise la page après la suppression
-          window.location.reload();
-        } else {
-          console.log("La suppression de la checklist a échoué");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la suppression de la checklist :", error);
-      }
-    }
-  };
-
-  //Nombre de task dans mon todo
-  const nbTask = todo.length;
-
-  //nombre de task done dans le todo
-  const taskDone = todo.filter((task) => task.statut === 2).length;
-
-  //pourcentage sur le nombre de task done sur le total
-  const pourcentage = (taskDone / nbTask) * 100;
-
-  // console.log("nbTask :", nbTask, "taskDone :", taskDone);
-
-  return (
-    <StyledDiv>
-      <Card
-        className="Card"
-        shadow="sm"
-        padding="xl"
-        component={Link}
-        to={`/list/${id}`}
-        radius="lg"
-      >
-        <Text className="Title" fw={800} size="xl" mt="md" ta="left">
-          {title}
-          <Link to={`/form/${id}`}>
-            <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
-          </Link>
-        </Text>
-
-        <Text className="Description" fw={300} size="sm" mt="md" ta="left">
-          {description}
-          <a href="#" className="Poubelle" onClick={handleDeleteClick}>
-            <i className="fa-regular fa-trash-can"></i>
-          </a>
-        </Text>
-
-        <Text className="Tasks" amt="xs" size="sm" ta="center">
-          {taskDone} task on {nbTask} completed
-        </Text>
-        <Progress
-          color="#26547C"
-          radius="xl"
-          size="xl"
-          value={pourcentage}
-          striped
-          animated
-        />
-        <Text className="Tasks" amt="xs" size="sm" ta="center"></Text>
-      </Card>
-    </StyledDiv>
-  );
-}
-
+//propTypes
 CardList.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,

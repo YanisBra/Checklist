@@ -3,9 +3,13 @@ import styled from "styled-components";
 import uniqid from "uniqid";
 import RedTask from "../Composants/RedTask";
 import PropTypes from "prop-types";
+import { Button } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
-import { getTasksByChecklistId } from "../Api/apiFunctions";
-import { updateChecklist, updateChecklistStatus } from "../Api/apiFunctions";
+import {
+  updateChecklist,
+  updateChecklistStatus,
+  getTasksByChecklistId,
+} from "../Api/apiFunctions";
 
 const PageList = () => {
   const { id } = useParams();
@@ -83,12 +87,19 @@ const PageList = () => {
 
   // Tri des tâches par l'état "done"
   const sortedTasks = [...checklist.todo].sort((a, b) => a.done - b.done);
+  const status =
+    checklist.statut === 0
+      ? "Not started"
+      : checklist.statut === 1
+      ? "In progress"
+      : "Completed";
 
   return (
     <>
       <StyledList>
         <h1>{checklist.title}</h1>
         <h2>{checklist.description}</h2>
+        <h3>({status})</h3>
         {sortedTasks.map(({ title, description, statut }) => (
           <RedTask
             key={uniqid}
@@ -98,8 +109,15 @@ const PageList = () => {
             onChange={handleUpdateTaskStatus}
           />
         ))}
+        <Button
+          className="Button"
+          variant="filled"
+          radius="lg"
+          onClick={handleSave}
+        >
+          Save
+        </Button>
       </StyledList>
-      <button onClick={handleSave}>Save</button>
     </>
   );
 };
@@ -123,7 +141,33 @@ const StyledList = styled.div`
     font-size: 17px;
     margin-top: 20px;
     text-align: center;
-    margin: 20px 100px;
+    margin: 20px auto 0px auto;
+  }
+
+  & h3 {
+    font-size: 15px;
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  .Button {
+    background-color: #ef476f;
+    position: fixed;
+    bottom: 2vh;
+    right: 2vh;
+    z-index: 1000;
+    height: 6vh;
+    width: 20vw;
+    max-width: 150px;
+    min-width: 100px;
+    font-size: 20px;
+    filter: drop-shadow(0px 3px 2px #303030);
+  }
+
+  @media screen and (max-width: 700px) {
+    .Button {
+      font-size: 15px;
+    }
   }
 `;
 
