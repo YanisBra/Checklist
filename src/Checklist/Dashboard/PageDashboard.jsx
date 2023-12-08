@@ -95,9 +95,12 @@ const StyledDashboard = styled.div`
       color: #ffffff;
       font-size: 28px;
       font-weight: bold;
-      height: 50px;
-      width: 50px;
+      /* height: 50px;
+      width: 50px; */
+      height: 2em;
+      width: 2em;
       border: none;
+      transform: scale(1);
     }
   }
 `;
