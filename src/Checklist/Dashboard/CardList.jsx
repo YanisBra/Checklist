@@ -62,7 +62,7 @@ function CardList({ title, description, statut, id, todo }) {
           {description}
           <i
             className="fa-regular fa-trash-can"
-            id="Poubelle"
+            id="Trash"
             onClick={handleDeleteClick}
           ></i>
         </Text>
@@ -71,6 +71,7 @@ function CardList({ title, description, statut, id, todo }) {
           {status} : {taskDone} tasks on {nbTask} completed
         </Text>
         <Progress
+          className="Progress"
           color="#26547C"
           radius="xl"
           size="xl"
@@ -100,6 +101,7 @@ const StyledDiv = styled.div`
     padding-bottom: 16px;
     padding-top: 0px;
     margin-right: 10vw;
+    overflow: hidden;
   }
   .Tasks {
     margin-bottom: 5px;
@@ -109,7 +111,7 @@ const StyledDiv = styled.div`
   }
 
   .Edit,
-  #Poubelle {
+  #Trash {
     height: 20px;
     position: absolute;
     right: 2vh;

@@ -87,6 +87,7 @@ const PageList = () => {
 
   // Tri des tâches par l'état "done"
   const sortedTasks = [...checklist.todo].sort((a, b) => a.done - b.done);
+
   const status =
     checklist.statut === 0
       ? "Not started"

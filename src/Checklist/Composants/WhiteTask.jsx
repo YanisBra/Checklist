@@ -52,6 +52,7 @@ const StyledTask = styled.div`
 
   i {
     margin-left: auto;
+    margin-right: 5px;
     cursor: pointer;
   }
 
@@ -69,6 +70,9 @@ const StyledTask = styled.div`
     background-color: transparent;
     color: white;
     margin: 0;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     opacity: ${({ statut }) => (statut === 2 ? 0.5 : 1)};
   }
 `;

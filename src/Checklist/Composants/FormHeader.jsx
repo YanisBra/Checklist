@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -11,43 +11,48 @@ const FormHeader = ({
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription);
 
+  useEffect(() => {
+    setTitle(initialTitle);
+    setDescription(initialDescription);
+  }, [initialTitle, initialDescription]);
+
   const handleTitleChange = (e) => {
     const newValue = e.target.value;
     setTitle(newValue);
-    onTitleChange(newValue); // Appel de la fonction parente pour mettre à jour le titre dans le composant parent
+    onTitleChange(newValue); // Call the parent function to update the title in the parent component
   };
 
   const handleDescriptionChange = (e) => {
     const newValue = e.target.value;
     setDescription(newValue);
-    onDescriptionChange(newValue); // Appel de la fonction parente pour mettre à jour la description dans le composant parent
+    onDescriptionChange(newValue); // Call the parent function to update the description in the parent component
   };
 
   return (
     <Header>
       <TitleDiv>
         <label htmlFor="title" className="Title">
-          Title :
+          Title:
         </label>
         <input
           type="text"
           id="title"
           name="title"
-          placeholder={initialTitle}
           value={title}
+          placeholder="New title..."
           onChange={handleTitleChange}
           required
         />
       </TitleDiv>
       <DescriptionDiv>
         <label htmlFor="description" className="Description">
-          Description :
+          Description:
         </label>
         <input
           type="text"
           id="description"
           name="description"
-          placeholder={initialDescription}
+          placeholder="Description..."
           value={description}
           onChange={handleDescriptionChange}
         />
@@ -58,14 +63,15 @@ const FormHeader = ({
 
 const Header = styled.div`
   input {
-    margin: auto 0 auto 10px;
+    margin: auto 0;
     background-color: #f78aa2;
     resize: none;
     border: none;
     border-radius: 10px;
     color: white;
     height: 3vh;
-    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &::placeholder {
       color: white;
     }
@@ -81,6 +87,7 @@ const Header = styled.div`
 
 const TitleDiv = styled.div`
   display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
   margin-top: 30px;
   border-radius: 20%;
@@ -91,8 +98,6 @@ const TitleDiv = styled.div`
     margin-left: 0;
   }
   @media screen and (max-width: 700px) {
-    display: flex;
-    flex-direction: column;
     .Title {
       font-size: 25px;
     }
@@ -101,6 +106,7 @@ const TitleDiv = styled.div`
 
 const DescriptionDiv = styled.div`
   display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
   border-radius: 20%;
 
@@ -109,8 +115,6 @@ const DescriptionDiv = styled.div`
     font-weight: lighter;
   }
   @media screen and (max-width: 700px) {
-    display: flex;
-    flex-direction: column;
     .Description {
       font-size: 18px;
     }

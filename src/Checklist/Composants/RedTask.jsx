@@ -45,6 +45,9 @@ const StyledTask = styled.div`
   p {
     margin: 0;
     opacity: ${({ statut }) => (statut === 2 ? 0.5 : 1)};
+    width: 65vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

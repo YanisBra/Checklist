@@ -23,7 +23,6 @@ const AddTask = ({ onAddTask }) => {
 
   return (
     <Add>
-      <i className="fa-solid fa-plus" onClick={handleTaskAdd}></i>
       <input
         type="text"
         placeholder="Add a task..."
@@ -31,6 +30,7 @@ const AddTask = ({ onAddTask }) => {
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
       />
+      <i className="fa-solid fa-plus" onClick={handleTaskAdd}></i>
     </Add>
   );
 };
@@ -46,7 +46,7 @@ const Add = styled.div`
   height: 30px;
 
   i {
-    margin-right: 20px;
+    margin-right: 10px;
     font-size: 20px;
     margin-left: 5px;
 
@@ -61,7 +61,10 @@ const Add = styled.div`
     font-size: 16px;
     background-color: transparent;
     color: white;
-    width: 50vw;
+    width: 70vw;
+    margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &::placeholder {
       color: white;
