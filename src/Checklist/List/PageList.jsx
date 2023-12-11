@@ -136,6 +136,11 @@ const StyledList = styled.div`
   min-height: 100vh;
   margin-top: 13vh;
   color: #ef476f;
+
+  @media screen and (max-height: 700px) {
+    margin-top: 125px;
+  }
+
   & h1 {
     font-weight: 900;
     font-size: 40px;
@@ -168,11 +173,13 @@ const StyledList = styled.div`
     min-width: 100px;
     font-size: 20px;
     filter: drop-shadow(0px 3px 2px #303030);
+    min-height: 50px;
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 1000px) {
     .Button {
       font-size: 15px;
+      width: 50px;
     }
   }
 `;

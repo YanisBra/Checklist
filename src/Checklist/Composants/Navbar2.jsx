@@ -95,6 +95,26 @@ const StyledNavbar = styled(Navbar)`
       font-size: 17px;
     }
   }
+
+  @media screen and (max-height: 1000px) {
+    height: 75px;
+    a {
+      font-size: 20px;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+      width: 150px;
+    }
+    .Logo {
+      height: 60px;
+      width: 105px;
+    }
+    .Home {
+      width: 150px;
+      height: 50px;
+      font-size: 17px;
+    }
+  }
 `;
 
 export default Navbar2;

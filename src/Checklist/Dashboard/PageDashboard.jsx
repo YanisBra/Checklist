@@ -80,6 +80,10 @@ const ContainerDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10vh;
+
+  @media screen and (max-height: 700px) {
+    margin-top: 75px;
+  }
 `;
 
 const StyledDashboard = styled.div`
@@ -91,6 +95,7 @@ const StyledDashboard = styled.div`
     z-index: 1000;
     height: 6vh;
     filter: drop-shadow(0px 3px 2px #303030);
+    min-height: 50px;
   }
   .MobileButton {
     display: none;

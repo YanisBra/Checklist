@@ -208,6 +208,11 @@ const StyledDiv = styled.div`
   margin: 5vh auto;
   filter: drop-shadow(0px 5px 2px #878787);
   margin-top: 15vh;
+
+  @media screen and (max-height: 700px) {
+    margin-top: 125px;
+  }
+
   .Card {
     background-color: #ef476f;
     color: white;

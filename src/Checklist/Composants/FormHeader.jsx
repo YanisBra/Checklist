@@ -74,7 +74,7 @@ const HeaderContainer = styled.div`
     border: none;
     border-radius: 10px;
     color: white;
-    height: 3vh;
+    height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
 
