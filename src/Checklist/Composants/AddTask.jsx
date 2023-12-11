@@ -1,20 +1,99 @@
+// import React, { useState } from "react";
+// import styled from "styled-components";
+
+// const AddTask = ({ onAddTask }) => {
+//   const [task, setTask] = useState("");
+
+//   const handleInputChange = (e) => {
+//     setTask(e.target.value);
+//   };
+
+//   const handleTaskAdd = () => {
+//     if (task.trim() !== "") {
+//       onAddTask(task);
+//       setTask(""); // Réinitialisez l'entrée après l'ajout de la tâche
+//     }
+//   };
+
+//   const handleKeyPress = (e) => {
+//     if (e.key === "Enter") {
+//       handleTaskAdd();
+//     }
+//   };
+
+//   return (
+//     <Add>
+//       <input
+//         type="text"
+//         placeholder="Add a task..."
+//         value={task}
+//         onChange={handleInputChange}
+//         onKeyPress={handleKeyPress}
+//       />
+//       <i className="fa-solid fa-plus" onClick={handleTaskAdd}></i>
+//     </Add>
+//   );
+// };
+
+// // CSS
+// const Add = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 30px;
+//   text-decoration: none;
+//   background-color: #f78aa2;
+//   border-radius: 10px;
+//   height: 30px;
+
+//   i {
+//     margin-right: 10px;
+//     font-size: 20px;
+//     margin-left: 5px;
+
+//     &:hover {
+//       cursor: pointer;
+//     }
+//   }
+
+//   input {
+//     border: none;
+//     outline: none;
+//     font-size: 16px;
+//     background-color: transparent;
+//     color: white;
+//     width: 70vw;
+//     margin-left: 10px;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+
+//     &::placeholder {
+//       color: white;
+//     }
+//   }
+// `;
+
+// export default AddTask;
+
 import React, { useState } from "react";
 import styled from "styled-components";
 
 const AddTask = ({ onAddTask }) => {
   const [task, setTask] = useState("");
 
+  // Handles input change
   const handleInputChange = (e) => {
     setTask(e.target.value);
   };
 
+  // Handles task addition
   const handleTaskAdd = () => {
     if (task.trim() !== "") {
       onAddTask(task);
-      setTask(""); // Réinitialisez l'entrée après l'ajout de la tâche
+      setTask(""); // Resets input after adding the task
     }
   };
 
+  // Handles key press events, specifically Enter key for adding a task
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleTaskAdd();
@@ -22,7 +101,7 @@ const AddTask = ({ onAddTask }) => {
   };
 
   return (
-    <Add>
+    <AddContainer>
       <input
         type="text"
         placeholder="Add a task..."
@@ -31,12 +110,12 @@ const AddTask = ({ onAddTask }) => {
         onKeyPress={handleKeyPress}
       />
       <i className="fa-solid fa-plus" onClick={handleTaskAdd}></i>
-    </Add>
+    </AddContainer>
   );
 };
 
-// CSS
-const Add = styled.div`
+// Styled Components
+const AddContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
