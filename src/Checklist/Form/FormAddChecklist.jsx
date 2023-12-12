@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Card, Button } from "@mantine/core";
 import AddTask from "../Composants/AddTask";
 import { useNavigate } from "react-router-dom";
 import FormHeader from "../Composants/FormHeader";
 import { addChecklist } from "../Api/apiFunctions";
-import WhiteTask from "../Composants/WhiteTask";
+import WhiteTask2 from "../Composants/WhiteTask2";
 import uniqid from "uniqid";
 
 function FormAddChecklist() {
@@ -28,7 +28,7 @@ function FormAddChecklist() {
   const handleAddTask = (task) => {
     const newTask = {
       title: task,
-      description: uniqid(),
+      description: uniqid(), // Unique id for each task
       statut: 0,
     };
     setTodo((prevTodo) => [...prevTodo, newTask]);
@@ -89,7 +89,7 @@ function FormAddChecklist() {
           />
           <div>
             {todo.map((task) => (
-              <WhiteTask
+              <WhiteTask2
                 key={task.description}
                 title={task.title}
                 description={task.description}

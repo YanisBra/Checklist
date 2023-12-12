@@ -28,7 +28,7 @@ const AddTask = ({ onAddTask }) => {
     <AddContainer>
       <input
         type="text"
-        placeholder="Add a task..."
+        placeholder="New Task..."
         value={task}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
@@ -65,7 +65,7 @@ const AddContainer = styled.div`
     background-color: transparent;
     color: white;
     width: 70vw;
-    margin-left: 10px;
+    padding-left: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
 

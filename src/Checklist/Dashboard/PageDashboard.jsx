@@ -51,24 +51,28 @@ const PageDashboard = () => {
           />
         ))}
       </ContainerDiv>
-
+      {/*Show "My first Checklist" button only if no existing checklists */}
+      {checklistsData.length === 0 && (
+        <Link to="/add-checklist">
+          <Button className="First" variant="filled" size="md" radius="md">
+            Get Started
+          </Button>
+        </Link>
+      )}
       {/* Add Checklist Button */}
-      <Link to="/add-checklist">
-        <Button
-          className="Button"
-          variant="filled"
-          size="md"
-          radius="lg"
-          href="list"
-        >
-          Add Checklist
-        </Button>
-      </Link>
-
+      {checklistsData.length >= 1 && (
+        <Link to="/add-checklist">
+          <Button className="Button" variant="filled" size="md" radius="lg">
+            Add Checklist
+          </Button>
+        </Link>
+      )}
       {/* Mobile Add Checklist Button */}
-      <Link to="/add-checklist">
-        <button className="MobileButton">+</button>
-      </Link>
+      {checklistsData.length >= 1 && (
+        <Link to="/add-checklist">
+          <button className="MobileButton">+</button>
+        </Link>
+      )}
     </StyledDashboard>
   );
 };
@@ -87,6 +91,18 @@ const ContainerDiv = styled.div`
 `;
 
 const StyledDashboard = styled.div`
+  .First {
+    background-color: var(--pink);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    height: 6vh;
+    filter: drop-shadow(0px 3px 2px #303030);
+    min-height: 50px;
+  }
+
   .Button {
     background-color: #ef476f;
     position: fixed;

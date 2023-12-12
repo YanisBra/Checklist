@@ -43,7 +43,7 @@ const FormHeader = ({
           id="title"
           name="title"
           value={title}
-          placeholder="New title..."
+          placeholder="Title..."
           onChange={handleTitleChange}
           required
         />
@@ -69,6 +69,7 @@ const FormHeader = ({
 const HeaderContainer = styled.div`
   input {
     margin: auto 0;
+    padding-left: 5px;
     background-color: #f78aa2;
     resize: none;
     border: none;

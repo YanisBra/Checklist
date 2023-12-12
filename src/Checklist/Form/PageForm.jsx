@@ -16,6 +16,8 @@ import uniqid from "uniqid";
 function PageForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   // State for checklist details and form inputs
   const [checklist, setChecklist] = useState({
@@ -23,8 +25,6 @@ function PageForm() {
     description: "",
     todo: [],
   });
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
   // Fetch checklist details on component mount
   useEffect(() => {
@@ -83,15 +83,11 @@ function PageForm() {
 
   // Function to update the status of a task in the checklist
   const handleUpdateTaskStatus = (taskId, newStatus) => {
-    setChecklist((prevChecklist) => {
-      const updatedTodo = prevChecklist.todo.map((task) =>
+    setTodo((prevTodo) => {
+      const updatedTodo = prevTodo.map((task) =>
         task.description === taskId ? { ...task, statut: newStatus } : task
       );
-
-      return {
-        ...prevChecklist,
-        todo: updatedTodo,
-      };
+      return updatedTodo;
     });
   };
 
