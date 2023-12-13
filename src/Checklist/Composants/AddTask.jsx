@@ -71,6 +71,7 @@ const AddContainer = styled.div`
 
     &::placeholder {
       color: white;
+      opacity: 70%;
     }
   }
 `;

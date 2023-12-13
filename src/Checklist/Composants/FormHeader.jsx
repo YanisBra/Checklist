@@ -81,6 +81,7 @@ const HeaderContainer = styled.div`
 
     &::placeholder {
       color: white;
+      opacity: 70%;
     }
   }
 
