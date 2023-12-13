@@ -1,5 +1,6 @@
 import api from "./api";
 
+// Function to add a new checklists
 export const addChecklist = async (title, description, todo) => {
   try {
     const response = await api.post("/checklist/add", {
@@ -15,39 +16,40 @@ export const addChecklist = async (title, description, todo) => {
   }
 };
 
-// Fonction pour récupérer toutes les checklists
+// Function to get all checklists
 export const getChecklists = async () => {
   try {
     const response = await api.get("/checklists");
-    return response.data.response; // Extraire la propriété response
+    return response.data.response;
   } catch (error) {
     console.error("Error getting checklists:", error);
     throw error;
   }
 };
 
-// Fonction pour récupérer les tâches par ID de checklist
-export const getTasksByChecklistId = async (checklistId) => {
+// Function to get checklist by ID
+export const getChecklistById = async (checklistId) => {
   try {
     const response = await api.get(`/checklist?id=${checklistId}`);
-    return response.data; // Assurez-vous d'ajuster la structure de la réponse selon votre API
+    return response.data;
   } catch (error) {
     console.error("Error getting tasks:", error);
     throw error;
   }
 };
 
-// Fonction pour supprimer
+// Function to delete checklist
 export const deleteChecklist = async (checklistId) => {
   try {
     const response = await api.get(`/checklist/delete?id=${checklistId}`);
     return response.data;
   } catch (error) {
-    console.error("Erreur deleting checklist :", error);
+    console.error("Error deleting checklist:", error);
     throw error;
   }
 };
 
+// Function to update a checklists
 export const updateChecklist = async (
   checklistId,
   title,
@@ -69,6 +71,7 @@ export const updateChecklist = async (
   }
 };
 
+// Function to update the checklist status
 export const updateChecklistStatus = async (checklistId, newStatus) => {
   try {
     const response = await api.get(

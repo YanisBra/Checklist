@@ -8,7 +8,7 @@ import FormHeader from "../Composants/FormHeader";
 import {
   updateChecklist,
   updateChecklistStatus,
-  getTasksByChecklistId,
+  getChecklistById,
 } from "../Api/apiFunctions";
 import WhiteTask from "../Composants/WhiteTask";
 import uniqid from "uniqid";
@@ -30,7 +30,7 @@ function PageForm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiResponse = await getTasksByChecklistId(id);
+        const apiResponse = await getChecklistById(id);
         console.log("API Response:", apiResponse);
 
         // Update the state including title, description, and tasks
@@ -83,11 +83,15 @@ function PageForm() {
 
   // Function to update the status of a task in the checklist
   const handleUpdateTaskStatus = (taskId, newStatus) => {
-    setTodo((prevTodo) => {
-      const updatedTodo = prevTodo.map((task) =>
+    setChecklist((prevChecklist) => {
+      const updatedTodo = prevChecklist.todo.map((task) =>
         task.description === taskId ? { ...task, statut: newStatus } : task
       );
-      return updatedTodo;
+
+      return {
+        ...prevChecklist,
+        todo: updatedTodo,
+      };
     });
   };
 
@@ -197,7 +201,7 @@ function PageForm() {
   );
 }
 
-//CSS
+//Styled components
 const StyledDiv = styled.div`
   width: 35vw;
   height: 70;
@@ -210,7 +214,7 @@ const StyledDiv = styled.div`
   }
 
   .Card {
-    background-color: #ef476f;
+    background-color: var(--pink);
     color: white;
     padding: 0px 16px 16px 16px;
   }
@@ -251,13 +255,7 @@ PageForm.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  todo: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      statut: PropTypes.number,
-      description: PropTypes.string,
-    })
-  ),
+  todo: PropTypes.array,
 };
 
 export default PageForm;

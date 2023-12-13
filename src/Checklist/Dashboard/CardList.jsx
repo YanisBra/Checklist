@@ -46,43 +46,42 @@ function CardList({ title, description, statut, id, todo, updateDelete }) {
 
   return (
     <StyledDiv>
-      <Card
-        className="Card"
-        shadow="sm"
-        padding="xl"
-        component={Link}
-        to={`/list/${id}`}
-        radius="lg"
-      >
-        <Text className="Title" fw={800} size="xl" mt="md" ta="left">
-          {title}
-          <Link to={`/form/${id}`}>
-            <img className="Edit" src="./Images/Edit.svg" alt="EditButton" />
+      <Card className="Card" shadow="sm" padding="xl" radius="lg">
+        <div className="Header">
+          <Link className="LinkHeader" to={`/list/${id}`}>
+            <Text className="Title" fw={800} size="xl" mt="md" ta="left">
+              {title}
+            </Text>
+            <Text className="Description" fw={300} size="sm" mt="md" ta="left">
+              {description}
+            </Text>
           </Link>
-        </Text>
-
-        <Text className="Description" fw={300} size="sm" mt="md" ta="left">
-          {description}
-          <i
-            className="fa-regular fa-trash-can"
-            id="Trash"
-            onClick={handleDeleteClick}
-          ></i>
-        </Text>
-
-        <Text className="Tasks" amt="xs" size="sm" ta="center">
-          {status} : {taskDone} tasks on {nbTask} completed
-        </Text>
-        <Progress
-          className="Progress"
-          color="#26547C"
-          radius="xl"
-          size="xl"
-          value={pourcentage}
-          striped
-          animated
-        />
-        <Text className="Tasks" amt="xs" size="sm" ta="center"></Text>
+          <div className="Icon">
+            <Link className="Edit" to={`/form/${id}`}>
+              <i className="fa-solid fa-pen" id="Edit" alt="EditButton"></i>
+              <i
+                className="fa-regular fa-trash-can"
+                id="Trash"
+                onClick={handleDeleteClick}
+              ></i>
+            </Link>
+          </div>
+        </div>
+        <Link className="Footer" to={`/list/${id}`}>
+          <Text className="Tasks" amt="xs" size="sm" ta="center">
+            {status} : {taskDone} tasks on {nbTask} completed
+          </Text>
+          <Progress
+            className="Progress"
+            color="var(--blue)"
+            radius="xl"
+            size="xl"
+            value={pourcentage}
+            striped
+            animated
+          />
+          <Text className="Tasks" amt="xs" size="sm" ta="center"></Text>
+        </Link>
       </Card>
     </StyledDiv>
   );
@@ -94,10 +93,32 @@ const StyledDiv = styled.div`
   margin: 20px auto;
   font-family: "Orbitron", sans-serif;
   filter: drop-shadow(0px 5px 2px #878787);
+
   .Card {
-    background-color: #ef476f;
+    background-color: var(--pink);
     color: white;
     padding: 0px 16px 16px 16px;
+  }
+
+  .Footer {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .Header {
+    display: flex;
+  }
+
+  .LinkHeader {
+    text-decoration: none;
+    color: inherit;
+    width: calc(100% - 25px);
+  }
+
+  .Title {
+    overflow: hidden;
+
+    margin-right: 7vw;
   }
 
   .Description {
@@ -106,19 +127,27 @@ const StyledDiv = styled.div`
     margin-right: 10vw;
     overflow: hidden;
   }
+
+  .Icon {
+    display: flex;
+    margin-top: 15px;
+  }
+
   .Tasks {
     margin-bottom: 5px;
   }
+
   .Edit {
-    height: 25px;
+    text-decoration: none;
+    color: white;
   }
 
-  .Edit,
+  #Edit {
+    margin-bottom: 3vh;
+    font-size: 17px;
+  }
+
   #Trash {
-    height: 20px;
-    position: absolute;
-    right: 2vh;
-    color: white;
     font-size: 17px;
   }
 
@@ -145,9 +174,7 @@ CardList.defaultProps = {
   description: "Default Description",
   taskDone: 1,
   nbTask: 0,
-  todo: [],
   statut: 0,
-  updateDelete: () => {},
 };
 
 export default CardList;

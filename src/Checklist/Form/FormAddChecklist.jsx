@@ -130,7 +130,7 @@ const StyledDiv = styled.div`
   }
 
   .Card {
-    background-color: #ef476f;
+    background-color: var(--pink);
     color: white;
     padding: 0px 16px 16px 16px;
   }

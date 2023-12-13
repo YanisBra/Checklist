@@ -70,7 +70,7 @@ const HeaderContainer = styled.div`
   input {
     margin: auto 0;
     padding-left: 5px;
-    background-color: #f78aa2;
+    background-color: var(--lightpink);
     resize: none;
     border: none;
     border-radius: 10px;
@@ -120,7 +120,6 @@ const DescriptionDiv = styled.div`
 
   .Description {
     font-size: 18px;
-    font-weight: lighter;
   }
 
   @media screen and (max-width: 700px) {
@@ -138,11 +137,10 @@ FormHeader.propTypes = {
   onDescriptionChange: PropTypes.func,
 };
 
+// Default props
 FormHeader.defaultProps = {
-  title: "Title",
+  title: "Title...",
   description: "Description...",
-  onTitleChange: () => {},
-  onDescriptionChange: () => {},
 };
 
 export default FormHeader;

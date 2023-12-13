@@ -44,7 +44,7 @@ const AddContainer = styled.div`
   align-items: center;
   margin-bottom: 30px;
   text-decoration: none;
-  background-color: #f78aa2;
+  background-color: var(--lightpink);
   border-radius: 10px;
   height: 30px;
 

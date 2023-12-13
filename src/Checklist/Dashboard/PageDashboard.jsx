@@ -54,8 +54,8 @@ const PageDashboard = () => {
       {/*Show "My first Checklist" button only if no existing checklists */}
       {checklistsData.length === 0 && (
         <Link to="/add-checklist">
-          <Button className="First" variant="filled" size="md" radius="md">
-            Get Started
+          <Button className="First" variant="filled" size="md" radius="lg">
+            Get started
           </Button>
         </Link>
       )}
@@ -97,14 +97,12 @@ const StyledDashboard = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
-    height: 6vh;
     filter: drop-shadow(0px 3px 2px #303030);
     min-height: 50px;
   }
 
   .Button {
-    background-color: #ef476f;
+    background-color: var(--pink);
     position: fixed;
     bottom: 2vh;
     right: 2vh;
@@ -124,14 +122,14 @@ const StyledDashboard = styled.div`
 
     .MobileButton {
       display: block;
-      background-color: #ef476f;
+      background-color: var(--pink);
       position: fixed;
       bottom: 2vh;
       right: 2vh;
       z-index: 1000;
       border-radius: 50px;
       cursor: pointer;
-      color: #ffffff;
+      color: white;
       font-size: 28px;
       font-weight: bold;
       height: 2em;

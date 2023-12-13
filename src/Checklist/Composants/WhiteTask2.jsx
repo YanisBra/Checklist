@@ -11,13 +11,18 @@ function WhiteTask2({ title, description, onDelete, onUpdateTitle }) {
 
   return (
     <StyledTask>
-      <input type="text" value={title} onChange={handleTitleChange} />
+      <input
+        name="task"
+        type="text"
+        value={title}
+        onChange={handleTitleChange}
+      />
       <i className="fa-regular fa-trash-can" onClick={onDelete}></i>
     </StyledTask>
   );
 }
 
-// Styled components for WhiteTask
+// Styled components
 const StyledTask = styled.div`
   display: flex;
   width: 100%;
@@ -45,12 +50,12 @@ const StyledTask = styled.div`
   }
 `;
 
-// PropTypes for WhiteTask component
+// PropTypes
 WhiteTask2.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-// Default props for WhiteTask component
+// Default props
 WhiteTask2.defaultProps = {
   title: "Default Task",
 };

@@ -35,7 +35,7 @@ const StyledTask = styled.div`
   display: flex;
   width: 70vw;
   align-items: center;
-  border-bottom: 2px solid #ef476f;
+  border-bottom: 2px solid var(--pink);
   margin-bottom: 10px;
   padding: 5px;
 
@@ -55,7 +55,7 @@ const StyledTask = styled.div`
   }
 `;
 
-// PropTypes for RedTask component
+// PropTypes
 RedTask.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
@@ -63,7 +63,7 @@ RedTask.propTypes = {
   onChange: PropTypes.func,
 };
 
-// Default props for RedTask component
+// Default props
 RedTask.defaultProps = {
   title: "Default Task",
   statut: 0,

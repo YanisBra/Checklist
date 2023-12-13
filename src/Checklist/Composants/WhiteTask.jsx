@@ -40,7 +40,12 @@ function WhiteTask({
   return (
     <StyledTask statut={statut}>
       <img src={check} alt="Circle" className="Circle" onClick={toggleCheck} />
-      <input type="text" value={title} onChange={handleTitleChange} />
+      <input
+        name="task"
+        type="text"
+        value={title}
+        onChange={handleTitleChange}
+      />
       <i className="fa-regular fa-trash-can" onClick={onDelete}></i>
     </StyledTask>
   );

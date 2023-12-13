@@ -23,14 +23,14 @@ const Navbar2 = () => {
   );
 };
 
-//CSS
+// Styled components
 const StyledNavbar = styled(Navbar)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: #26547c;
+  background-color: var(--blue);
   height: 10vh;
 
   a {
@@ -45,7 +45,7 @@ const StyledNavbar = styled(Navbar)`
 
   .Home {
     margin-left: 3vw;
-    background-color: #ef476f;
+    background-color: var(--pink);
     margin-right: auto;
     width: 15vh;
     filter: drop-shadow(0px 3px 2px #303030);

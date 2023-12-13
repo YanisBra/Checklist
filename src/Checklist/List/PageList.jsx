@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   updateChecklist,
   updateChecklistStatus,
-  getTasksByChecklistId,
+  getChecklistById,
 } from "../Api/apiFunctions";
 
 const PageList = () => {
@@ -25,7 +25,7 @@ const PageList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiResponse = await getTasksByChecklistId(id);
+        const apiResponse = await getChecklistById(id);
         console.log("API Response:", apiResponse);
 
         // Update the state including title, description, and tasks
@@ -92,14 +92,12 @@ const PageList = () => {
   const sortedTasks = [...checklist.todo].sort((a, b) => a.statut - b.statut);
 
   // Determine checklist status text
-  const status =
-    checklist.statut === 0
-      ? "Not started"
-      : checklist.statut === 1
-      ? "In progress"
-      : "Completed";
+  const status = checklist.todo.every((task) => task.statut === 2)
+    ? "Completed"
+    : checklist.todo.some((task) => task.statut === 2)
+    ? "In progress"
+    : "Not started";
 
-  // JSX structure of the component
   return (
     <>
       <StyledList>
@@ -162,7 +160,7 @@ const StyledList = styled.div`
   }
 
   .Button {
-    background-color: #ef476f;
+    background-color: var(--pink);
     position: fixed;
     bottom: 2vh;
     right: 2vh;
@@ -192,6 +190,7 @@ PageList.propTypes = {
   statut: PropTypes.number.isRequired,
 };
 
+//Default props
 PageList.defaultProps = {
   title: "Checklist 1",
   description: "Description",
