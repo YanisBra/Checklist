@@ -125,23 +125,23 @@ function PageForm() {
         newChecklistStatus = 1; // If at least one task is done, checklist status is set to 1
       }
 
-      // Step 3: Update the checklist status
+      // Step 3: Update the local checklist status
+      setChecklist((prevChecklist) => ({
+        ...prevChecklist,
+        statut: newChecklistStatus,
+      }));
+
+      // Step 4: Update the checklist status
       console.log("newChecklistStatus", newChecklistStatus);
       await updateChecklistStatus(id, newChecklistStatus);
 
-      // Step 4: Update the checklist
+      // Step 5: Update the checklist
       const response = await updateChecklist(
         id,
         title !== "" ? title : checklist.title,
         description !== "" ? description : checklist.description,
         checklist.todo
       );
-
-      // Step 5: Update the local checklist status
-      setChecklist((prevChecklist) => ({
-        ...prevChecklist,
-        statut: newChecklistStatus,
-      }));
 
       // Step 6: Navigate to the dashboard after saving
       navigate("/");

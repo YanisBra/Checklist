@@ -87,7 +87,7 @@ const StyledTask = styled.div`
   }
 `;
 
-// PropTypes for WhiteTask component
+// PropTypes
 WhiteTask.propTypes = {
   title: PropTypes.string.isRequired,
   statut: PropTypes.number,
@@ -97,7 +97,7 @@ WhiteTask.propTypes = {
   description: PropTypes.string,
 };
 
-// Default props for WhiteTask component
+// Default props 
 WhiteTask.defaultProps = {
   title: "Default Task",
   statut: 0,
