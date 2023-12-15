@@ -23,8 +23,8 @@ function RedTask({ title, description, statut, onChange }) {
   const check = isChecked ? "/Images/CheckCircle.svg" : "/Images/Circle.svg";
 
   return (
-    <StyledTask statut={isChecked ? 2 : 0}>
-      <img src={check} alt="Circle" className="Circle" onClick={toggleCheck} />
+    <StyledTask onClick={toggleCheck} statut={isChecked ? 2 : 0}>
+      <img src={check} alt="Circle" className="Circle" />
       <p>{title}</p>
     </StyledTask>
   );
@@ -38,6 +38,8 @@ const StyledTask = styled.div`
   border-bottom: 2px solid var(--pink);
   margin-bottom: 10px;
   padding: 5px;
+  user-select: none;
+  cursor: pointer;
 
   .Circle {
     height: 25px;
